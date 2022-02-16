@@ -4,9 +4,17 @@
         <servlet-name>InsertStudentControll</servlet-name>
         <servlet-class>Controller.InsertStudentControll</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchStudentControll</servlet-name>
+        <servlet-class>Controller.SearchStudentControll</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InsertStudentControll</servlet-name>
         <url-pattern>/student/insert</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchStudentControll</servlet-name>
+        <url-pattern>/student/search</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

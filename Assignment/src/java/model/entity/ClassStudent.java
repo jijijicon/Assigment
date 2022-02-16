@@ -9,15 +9,15 @@ package model.entity;
  *
  * @author ASUS
  */
-public class Class {
+public class ClassStudent {
     private String classID;
     private String teacherID;
-    private int gradeID;
+    private Grade gradeID;
 
-    public Class() {
+    public ClassStudent() {
     }
 
-    public Class(String classID, String teacherID, int gradeID) {
+    public ClassStudent(String classID, String teacherID, Grade gradeID) {
         this.classID = classID;
         this.teacherID = teacherID;
         this.gradeID = gradeID;
@@ -39,12 +39,13 @@ public class Class {
         this.teacherID = teacherID;
     }
 
-    public int getGradeID() {
+    public Grade getGradeID() {
         return gradeID;
     }
 
-    public void setGradeID(int gradeID) {
+    public void setGradeID(Grade gradeID) {
         this.gradeID = gradeID;
     }
-    
+
+   
 }

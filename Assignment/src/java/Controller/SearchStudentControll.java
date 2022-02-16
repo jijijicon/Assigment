@@ -7,6 +7,7 @@ package Controller;
 
 import dal.ClassDB;
 import dal.GradeDB;
+import dal.StudentDB;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -15,12 +16,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.entity.Grade;
-import model.entity.ClassStudent;
+import model.entity.Student;
+
 /**
  *
  * @author ASUS
  */
-public class InsertStudentControll extends HttpServlet {
+public class SearchStudentControll extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,21 +33,32 @@ public class InsertStudentControll extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-   
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-  
+        GradeDB graDB = new GradeDB();
+        ArrayList<Grade> grades = graDB.getListGrade();
+        request.setAttribute("grades", grades);
+
+        String raw_gradeID = request.getParameter("gradeID");
+        if (raw_gradeID == null || raw_gradeID.length() == 0) {
+            raw_gradeID = "-1";
+        }
+        int gradeID = Integer.parseInt(raw_gradeID);
+        ClassDB cdb = new ClassDB();
+        ArrayList<model.entity.ClassStudent> classes = cdb.getListClass(gradeID);
+
+        request.setAttribute("gradeID", gradeID);
+        request.setAttribute("classes", classes);
+
+        String classID = request.getParameter("classID");
+
+        StudentDB sdb = new StudentDB();
+        ArrayList<Student> students = sdb.getListStudent(classID);
+        request.setAttribute("classID", classID);
+        request.setAttribute("students", students);
+        request.getRequestDispatcher("../view/student/search.jsp").forward(request, response);
+
     }
 
     /**
@@ -59,7 +72,7 @@ public class InsertStudentControll extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     /**
