@@ -8,6 +8,22 @@
         <servlet-name>SearchStudentControll</servlet-name>
         <servlet-class>Controller.SearchStudentControll</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>home</servlet-name>
+        <servlet-class>Controller.home</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StudentDetailControll</servlet-name>
+        <servlet-class>Controller.StudentDetailControll</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StudentMark</servlet-name>
+        <servlet-class>Controller.StudentMark</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteStudentControll</servlet-name>
+        <servlet-class>Controller.DeleteStudentControll</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InsertStudentControll</servlet-name>
         <url-pattern>/student/insert</url-pattern>
@@ -15,6 +31,22 @@
     <servlet-mapping>
         <servlet-name>SearchStudentControll</servlet-name>
         <url-pattern>/student/search</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>home</servlet-name>
+        <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StudentDetailControll</servlet-name>
+        <url-pattern>/student/infor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StudentMark</servlet-name>
+        <url-pattern>/student/mark</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteStudentControll</servlet-name>
+        <url-pattern>/student/delete</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

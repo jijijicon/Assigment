@@ -6,6 +6,7 @@
 package model.entity;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,7 +21,16 @@ public class Student {
     private Date dob;
     private String adress;
     private String photo;
+    ArrayList<Mark> marks = new ArrayList<>();
 
+    public ArrayList<Mark> getMarks() {
+        return marks;
+    }
+
+    public void setMarks(ArrayList<Mark> marks) {
+        this.marks = marks;
+    }
+    
     public Student() {
     }
 

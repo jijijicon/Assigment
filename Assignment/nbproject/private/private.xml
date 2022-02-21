@@ -3,10 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/web/homepage.jsp</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/web/index.html</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/web/homepage.css</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/src/java/dal/ClassDB.java</file>
+            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/student/infor.js</file>
+            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/student/insert.jsp</file>
+            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/student/mark.jsp</file>
+            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/student/mark.css</file>
+            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/student/markdetail.jsp</file>
+            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/student/search.css</file>
+            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/student/infor.jsp</file>
+            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/student/search.jsp</file>
         </group>
     </open-files>
 </project-private>

@@ -15,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.entity.ClassStudent;
 import model.entity.Grade;
 import model.entity.Student;
 
@@ -46,15 +47,21 @@ public class SearchStudentControll extends HttpServlet {
         }
         int gradeID = Integer.parseInt(raw_gradeID);
         ClassDB cdb = new ClassDB();
-        ArrayList<model.entity.ClassStudent> classes = cdb.getListClass(gradeID);
+        ArrayList<ClassStudent> classes = cdb.getListClass(gradeID);
 
         request.setAttribute("gradeID", gradeID);
         request.setAttribute("classes", classes);
-
-        String classID = request.getParameter("classID");
+        String classID =(String)request.getParameter("classID");
+         
+        if (classID== null || classID.length() == 0) {
+            classID = "0";}
+        int cl = Integer.parseInt(classID.substring(0, 1));
+        if(cl != gradeID && gradeID!=-1){
+            classID = "0";
+        }
 
         StudentDB sdb = new StudentDB();
-        ArrayList<Student> students = sdb.getListStudent(classID);
+        ArrayList<Student> students = sdb.getListStudentByClass(gradeID,classID);
         request.setAttribute("classID", classID);
         request.setAttribute("students", students);
         request.getRequestDispatcher("../view/student/search.jsp").forward(request, response);
