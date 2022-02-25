@@ -18,7 +18,7 @@ public class Mark {
     private int smalltest2;
     private int bigtest2;
     private int finalltest2;
-
+    
     public Mark() {
     }
 
@@ -85,6 +85,6 @@ public class Mark {
     public void setFinalltest2(int finalltest2) {
         this.finalltest2 = finalltest2;
     }
-    
+
     
 }

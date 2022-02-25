@@ -17,12 +17,20 @@
         <servlet-class>Controller.StudentDetailControll</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>StudentMark</servlet-name>
-        <servlet-class>Controller.StudentMark</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>DeleteStudentControll</servlet-name>
         <servlet-class>Controller.DeleteStudentControll</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateStudentControll</servlet-name>
+        <servlet-class>Controller.UpdateStudentControll</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListMarkControll</servlet-name>
+        <servlet-class>Controller.Mark.ListMarkControll</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DetailMark</servlet-name>
+        <servlet-class>Controller.Mark.DetailMark</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>InsertStudentControll</servlet-name>
@@ -41,12 +49,20 @@
         <url-pattern>/student/infor</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>StudentMark</servlet-name>
-        <url-pattern>/student/mark</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>DeleteStudentControll</servlet-name>
         <url-pattern>/student/delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateStudentControll</servlet-name>
+        <url-pattern>/student/update</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListMarkControll</servlet-name>
+        <url-pattern>/mark/list</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DetailMark</servlet-name>
+        <url-pattern>/mark/detail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

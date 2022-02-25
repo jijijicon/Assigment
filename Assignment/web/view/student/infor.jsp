@@ -53,7 +53,7 @@
                             </li>
 
                             <li class="nav-item item">
-                                <a class="nav-link active" aria-current="page" href="#">danh sach</a>
+                                <a class="nav-link active" aria-current="page"href="../student/search">danh sach</a>
                             </li>
                             <li class="nav-item item">
                                 <a class="nav-link active" aria-current="page" href="#">xem điểm</a>
@@ -110,8 +110,9 @@
 
 
 
-                        <a class="btn btn-danger" href="#" onclick="deleteStudent('<%= st.getStudentID()%>')">dell</a>
-                        <button  class="btn btn-primary">Cancel</button>
+                        <a class="btn btn-danger" href="#" onclick="deleteStudent('<%= st.getStudentID()%>')">xóa</a>
+                        <a class="btn btn-warning" href="../student/update?id=<%= st.getStudentID() %>" >chỉnh sửa</a>
+                        
 
 
                     </div>

@@ -1,13 +1,12 @@
 <%-- 
-    Document   : insert
-    Created on : Feb 19, 2022, 4:39:02 PM
+    Document   : update
+    Created on : Feb 21, 2022, 8:34:02 PM
     Author     : ASUS
 --%>
 
+<%@page import="model.entity.Student"%>
 <%@page import="model.entity.ClassStudent"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="java.awt.Desktop.Action"%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -25,6 +24,7 @@
         <title>JSP Page</title>
         <%
             ArrayList<ClassStudent> classlist = (ArrayList<ClassStudent>) request.getAttribute("classes");
+            Student st = (Student) request.getAttribute("student");
         %>
     </head>
     <body>
@@ -33,53 +33,61 @@
                  style="border: 1px darkgrey solid; border-radius: 10px; width: 50%; margin: 0 auto; padding: 20px;">
                 <div class="col-sm-12">
 
-                    <h2 class="myclass">thêm học sinh</h2>
-                    <form action="../student/insert" method="post" >
+                    <h2 class="myclass">chỉnh sửa thông tin</h2>
+                    <form action="../student/update" method="post" >
                         <div class="form-group">
-                            <label>ID</label> 
-                            <input type="text" 
-                                   class="form-control" name="studentid" placeholder="Enter id">
-                        </div>
-                        <div class="form-group">
-                            <label> họ </label> 
-                            <input type="text" 
-                                   class="form-control" name="firstname" placeholder="Enter firstname">
+
+                            <h4><%=st.getStudentID()%></h4>
+                            <input type="hidden" name="id" value="<%=st.getStudentID()%>" /> <br/>
                         </div>
                         <div class="form-group">
                             <label> tên </label> 
                             <input type="text" 
-                                   class="form-control" name="lastname" placeholder="Enter lastname">
+                                   class="form-control" name="firstname" placeholder="Enter firstname" value="<%= st.getFirstname()%>">
+                        </div>
+                        <div class="form-group">
+                            <label> họ </label> 
+                            <input type="text" 
+                                   class="form-control" name="lastname" placeholder="Enter lastname" value="<%= st.getLastname() %>">
                         </div>
                         <div class="form-group">
                             giới tính: 
-                            <input  type="radio" name="gender" checked="checked"  value="boy">boy
-                            <input type="radio" name="gender" value="girl">girl<br>
+                            <input type="radio"
+                                           <%if (st.isGender()) { %>
+                                           checked="checked"
+                                           <%}%>
+                                           name="gender" value="boy"/>nam
+                            <input type="radio" 
+                                   <%=(!st.isGender()) ? "checked=\"checked\"" : ""%> 
+                                   name="gender" value="girl"/>nữ<br/>
                         </div>
                         <div class="form-group">
                             <label> ngày sinh </label> 
                             <input type="date" 
-                                   class="form-control" name="dob">
+                                   class="form-control" name="dob" value="<%= st.getDob()%>">
                         </div>
                         <div class="form-group">
                             <label> lớp  </label> 
                             <select name="classid">
 
                                 <%for (ClassStudent cl : classlist) {%>
-                                <option value="<%= cl.getClassID() %>"><%= cl.getClassID()  %></option>   
+                                <option <% if(cl.getClassID().equals( st.getClassID().getClassID())) { %> selected="selected" <%}%>
+                                    value="<%= cl.getClassID()%>"><%= cl.getClassID()%></option>   
                                 <%}
                                 %>
                             </select>
                         </div>
-                             <div class="form-group">
-                            <label>địa chỉ</label> 
+                            <input type="hidden" name="oldclass" value="<%= st.getClassID().getClassID() %>" >
+                        <div class="form-group">
+                            <label> địa chỉ </label> 
                             <input type="text" 
-                                   class="form-control" name="adress">
+                                   class="form-control" name="adress" value="<%= st.getAdress() %>" >
                         </div>
                         <div class="form-group">
                             <label>Photo</label> <br/>
 
                             <input type="file" 
-                                   class="form-control" name="photo" placeholder="Enter photo">
+                                   class="form-control" name="photo" placeholder="Enter photo" value="<%= st.getPhoto() %>">
                         </div>
 
                         <button type="submit" class="btn btn-primary">Save</button>

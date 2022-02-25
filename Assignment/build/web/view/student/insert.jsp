@@ -52,7 +52,7 @@
                         </div>
                         <div class="form-group">
                             giới tính: 
-                            <input  type="radio" name="gender"  value="boy">boy
+                            <input  type="radio" name="gender" checked="checked"  value="boy">boy
                             <input type="radio" name="gender" value="girl">girl<br>
                         </div>
                         <div class="form-group">
@@ -71,7 +71,7 @@
                             </select>
                         </div>
                              <div class="form-group">
-                            <label> địa chỉ </label> 
+                            <label>địa chỉ</label> 
                             <input type="text" 
                                    class="form-control" name="adress">
                         </div>

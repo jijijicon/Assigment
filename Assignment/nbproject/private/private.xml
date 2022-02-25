@@ -3,14 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/student/infor.js</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/student/insert.jsp</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/student/mark.jsp</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/student/mark.css</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/student/markdetail.jsp</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/student/search.css</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/student/infor.jsp</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/student/search.jsp</file>
+            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/mark/detail.jsp</file>
+            <file>file:/D:/2022%20spring/Assignment/Assignment/src/java/Controller/UpdateStudentControll.java</file>
+            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/student/update.jsp</file>
+            <file>file:/D:/2022%20spring/Assignment/Assignment/src/java/Controller/InsertStudentControll.java</file>
+            <file>file:/D:/2022%20spring/Assignment/Assignment/src/java/dal/StudentDB.java</file>
         </group>
     </open-files>
 </project-private>

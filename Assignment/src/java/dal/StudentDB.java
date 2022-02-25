@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.entity.ClassStudent;
 import model.entity.Grade;
+import model.entity.Mark;
 import model.entity.Student;
 
 /**
@@ -21,7 +22,7 @@ import model.entity.Student;
  */
 public class StudentDB extends DBContext {
 
-    public ArrayList<Student> getListStudentByClass(int gradeid, String classid) {
+    public ArrayList<Student> getListStudentByClassandGrade(int gradeid, String classid) {
         ArrayList<Student> students = new ArrayList<>();
         try {
             String sql = "SELECT studentID, firstName, lastName , gender , dob, photo, Class.classID, teacherID, Grade.GradeID   \n"
@@ -83,28 +84,27 @@ public class StudentDB extends DBContext {
     }
 
     public void insertStudent(Student s) {
-        String sql = "INSERT INTO [dbo].[Student]\n"
-                + "           ([studentID]\n"
-                + "           ,[classID]\n"
-                + "           ,[firstName]\n"
-                + "           ,[lastName]\n"
-                + "           ,[gender]\n"
-                + "           ,[dob]\n"
-                + "           ,[adress]\n"
-                + "           ,[photo])\n"
-                + "     VALUES\n"
-                + "           (?"
-                + "           ,?"
-                + "           ,?"
-                + "           ,?"
-                + "           ,?"
-                + "           ,?"
-                + "           ,?"
-                + "           ,?)";
-        PreparedStatement stm = null;
-
         try {
-            stm = connection.prepareStatement(sql);
+            connection.setAutoCommit(false);
+            String sql = "INSERT INTO [dbo].[Student]\n"
+                    + "           ([studentID]\n"
+                    + "           ,[classID]\n"
+                    + "           ,[firstName]\n"
+                    + "           ,[lastName]\n"
+                    + "           ,[gender]\n"
+                    + "           ,[dob]\n"
+                    + "           ,[adress]\n"
+                    + "           ,[photo])\n"
+                    + "     VALUES\n"
+                    + "           (?"
+                    + "           ,?"
+                    + "           ,?"
+                    + "           ,?"
+                    + "           ,?"
+                    + "           ,?"
+                    + "           ,?"
+                    + "           ,?)";
+            PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, s.getStudentID());
             stm.setString(2, s.getClassID().getClassID());
             stm.setString(3, s.getFirstname());
@@ -114,25 +114,40 @@ public class StudentDB extends DBContext {
             stm.setString(7, s.getAdress());
             stm.setString(8, s.getPhoto());
             stm.executeUpdate();
+//            String sql_get_id ="select studentid as sid";
+//            ResultSet rs = stm.executeQuery();
+//            
+
+            for (Mark mark : s.getMarks()) {
+                String sql_add_mark = "INSERT INTO [dbo].[Mark]\n"
+                        + "           ([studentID]\n"
+                        + "           ,[subjectID])\n"
+                        + "\n"
+                        + "     VALUES \n"
+                        + "           ( ? \n"
+                        + "            ,? )";
+                PreparedStatement stm_add_mark = connection.prepareStatement(sql_add_mark);
+                stm_add_mark.setString(1, s.getStudentID());
+                stm_add_mark.setString(2, mark.getSubjectid().getSubjectID());
+                stm_add_mark.executeUpdate();
+
+            }
+            connection.commit();
         } catch (SQLException ex) {
             Logger.getLogger(StudentDB.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (stm != null) {
-                try {
-                    stm.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(StudentDB.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(StudentDB.class.getName()).log(Level.SEVERE, null, ex1);
             }
-
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(StudentDB.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(StudentDB.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
     }
 
     public Student getStudent(String id) {
@@ -177,13 +192,13 @@ public class StudentDB extends DBContext {
     }
 
     public void deleteStudent(Student s) {
-        String sql = "DELETE FROM [Student]\n"
-                + "      WHERE StudentID = ?"
-                ;
+        String sql = "delete from Mark where studentID = ? \n"
+                + "delete from Student where studentID = ? ";
         PreparedStatement stm = null;
         try {
             stm = connection.prepareStatement(sql);
             stm.setString(1, s.getStudentID());
+            stm.setString(2, s.getStudentID());
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(StudentDB.class.getName()).log(Level.SEVERE, null, ex);
@@ -205,4 +220,111 @@ public class StudentDB extends DBContext {
             }
         }
     }
+
+    public void updateStudent(Student s) {
+        String sql = "UPDATE [dbo].[Student]\n"
+                + "   SET  \n"
+                + "      [classID] = ?\n"
+                + "      ,[firstName] = ?\n"
+                + "      ,[lastName] = ?\n"
+                + "      ,[gender] = ?\n"
+                + "      ,[dob] = ?\n"
+                + "      ,[adress] = ?\n"
+                + "      ,[photo] = ?\n"
+                + " WHERE studentID = ?";
+        PreparedStatement stm = null;
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, s.getClassID().getClassID());
+            stm.setNString(2, s.getFirstname());
+            stm.setNString(3, s.getLastname());
+            stm.setBoolean(4, s.isGender());
+            stm.setDate(5, s.getDob());
+            stm.setNString(6, s.getAdress());
+            stm.setString(7, s.getPhoto());
+            stm.setString(8, s.getStudentID());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDB.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(StudentDB.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(StudentDB.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
+
+    public void UpdateStudentGradeChange(Student s) {
+        try {
+            connection.setAutoCommit(false);
+            String sql = "UPDATE [dbo].[Student]\n"
+                    + "   SET [classID] = ? \n"
+                    + "      ,[firstName] = ? \n"
+                    + "      ,[lastName] = ? \n"
+                    + "      ,[gender] = ? \n"
+                    + "      ,[dob] = ? \n"
+                    + "      ,[adress] = ? \n"
+                    + "      ,[photo] = ? \n"
+                    + " WHERE [studentID] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+           
+            stm.setString(1, s.getClassID().getClassID());
+            stm.setString(2, s.getFirstname());
+            stm.setString(3, s.getLastname());
+            stm.setBoolean(4, s.isGender());
+            stm.setDate(5, s.getDob());
+            stm.setString(6, s.getAdress());
+            stm.setString(7, s.getPhoto());
+            stm.setString(8, s.getStudentID());
+            stm.executeUpdate();
+//            String sql_get_id ="select studentid as sid";
+//            ResultSet rs = stm.executeQuery();
+//            
+            String sql_delete = "delete from Mark where studentID = ? \n";
+            PreparedStatement stm_delete = connection.prepareStatement(sql_delete);
+            stm_delete.setString(1, s.getStudentID());
+            stm_delete.executeUpdate();
+            for (Mark mark : s.getMarks()) {
+                String sql_add_mark = "INSERT INTO [dbo].[Mark]\n"
+                        + "           ([studentID]\n"
+                        + "           ,[subjectID])\n"
+                        + "\n"
+                        + "     VALUES \n"
+                        + "           ( ? \n"
+                        + "            ,? )";
+                PreparedStatement stm_add_mark = connection.prepareStatement(sql_add_mark);
+                stm_add_mark.setString(1, s.getStudentID());
+                stm_add_mark.setString(2, mark.getSubjectid().getSubjectID());
+                stm_add_mark.executeUpdate();
+
+            }
+            connection.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDB.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(StudentDB.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(StudentDB.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }
+
 }

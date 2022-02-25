@@ -56,7 +56,7 @@
                                 <a class="nav-link active" aria-current="page" href="../student/search">danh sach</a>
                             </li>
                             <li class="nav-item item">
-                                <a class="nav-link active" aria-current="page" href="#">xem điểm</a>
+                                <a class="nav-link active" aria-current="page" href="../mark/list?classid=1A">xem điểm</a>
                             </li>
 
                             <form id="search" class="d-flex nav-item item">

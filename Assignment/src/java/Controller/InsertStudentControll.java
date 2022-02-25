@@ -8,6 +8,7 @@ package Controller;
 import dal.ClassDB;
 import dal.GradeDB;
 import dal.StudentDB;
+import dal.subjectDB;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
@@ -19,7 +20,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.entity.Grade;
 import model.entity.ClassStudent;
+import model.entity.Mark;
 import model.entity.Student;
+import model.entity.Subject;
 
 /**
  *
@@ -52,11 +55,8 @@ public class InsertStudentControll extends HttpServlet {
         ClassDB cdb = new ClassDB();
         ArrayList<ClassStudent> classes = cdb.getListClass(-1);
 
-        
         request.setAttribute("classes", classes);
-        
 
-        
         request.getRequestDispatcher("../view/student/insert.jsp").forward(request, response);
     }
 
@@ -65,7 +65,7 @@ public class InsertStudentControll extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         Student st = new Student();
-        
+
         boolean gender = request.getParameter("gender").equals("boy");
         st.setStudentID(request.getParameter("studentid"));
         st.setFirstname(request.getParameter("firstname"));
@@ -73,15 +73,30 @@ public class InsertStudentControll extends HttpServlet {
         st.setGender(gender);
         st.setDob(Date.valueOf(request.getParameter("dob")));
         st.setAdress(request.getParameter("adress"));
-        
+
         ClassStudent cl = new ClassStudent();
         cl.setClassID(request.getParameter("classid"));
-        
+
         st.setClassID(cl);
-        
-        
+
         st.setPhoto(request.getParameter("photo"));
         StudentDB stdb = new StudentDB();
+
+        subjectDB sjdb = new subjectDB();
+        ArrayList<Subject> subjects = sjdb.listSubjectInClass(st.getClassID().getClassID());
+
+        for (Subject sj : subjects) {
+            Mark m = new Mark();
+            m.setSubjectid(sj);
+            m.setStudentid(st);
+            st.getMarks().add(m);
+           
+        }
+        
+//        for (int i=0;i<st.getMarks().size();i++){
+//            System.out.println(st.getMarks().get(i).getSubjectid().getSubjectName());
+//        }
+        
         stdb.insertStudent(st);
         response.sendRedirect("../student/search");
     }

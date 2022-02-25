@@ -17,17 +17,24 @@ import model.entity.Subject;
  *
  * @author ASUS
  */
-public class subjectDB extends DBContext{
-    public ArrayList<Subject> listSubject(){
+public class subjectDB extends DBContext {
+
+    public ArrayList<Subject> listSubjectInClass(String classid) {
         ArrayList<Subject> subjects = new ArrayList<>();
         try {
-            String sql = "select * from Subject";
+            String sql = "	SELECT    Class.classID, Subject.subjectID, Subject.subjectName\n"
+                    + "	FROM         Class INNER JOIN\n"
+                    + "						  Grade ON Class.GradeID = Grade.GradeID INNER JOIN\n"
+                    + "						  SubjectGrade ON Grade.GradeID = SubjectGrade.GradeID INNER JOIN\n"
+                    + "						  Subject ON SubjectGrade.subjectID = Subject.subjectID\n"
+                    + "						  where classID = ? ";
             PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, classid);
             ResultSet rs = stm.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Subject sub = new Subject();
-                sub.setSubjectID(rs.getString(1));
-                sub.setSubjectName(rs.getNString(2));
+                sub.setSubjectID(rs.getString(2));
+                sub.setSubjectName(rs.getNString(3));
                 subjects.add(sub);
             }
         } catch (SQLException ex) {

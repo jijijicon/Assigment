@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller;
+package Controller.Mark;
 
-import dal.ClassDB;
-import dal.GradeDB;
+import dal.MarkDB;
 import dal.StudentDB;
+import dal.subjectDB;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -15,15 +15,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.entity.ClassStudent;
-import model.entity.Grade;
+import model.entity.Mark;
 import model.entity.Student;
+import model.entity.Subject;
 
 /**
  *
  * @author ASUS
  */
-public class SearchStudentControll extends HttpServlet {
+public class ListMarkControll extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,38 +34,36 @@ public class SearchStudentControll extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        GradeDB graDB = new GradeDB();
-        ArrayList<Grade> grades = graDB.getListGrade();
-        request.setAttribute("grades", grades);
-
-        String raw_gradeID = request.getParameter("gradeID");
-        if (raw_gradeID == null || raw_gradeID.length() == 0) {
-            raw_gradeID = "-1";
-        }
-        int gradeID = Integer.parseInt(raw_gradeID);
-        ClassDB cdb = new ClassDB();
-        ArrayList<ClassStudent> classes = cdb.getListClass(gradeID);
-
-        request.setAttribute("gradeID", gradeID);
-        request.setAttribute("classes", classes);
-        String classID =(String)request.getParameter("classID");
-         
-        if (classID== null || classID.length() == 0) {
-            classID = "0";}
-        int cl = Integer.parseInt(classID.substring(0, 1));
-        if(cl != gradeID && gradeID!=-1){
-            classID = "0";
-        }
-
-        StudentDB sdb = new StudentDB();
-        ArrayList<Student> students = sdb.getListStudentByClassandGrade(gradeID,classID);
-        request.setAttribute("classID", classID);
-        request.setAttribute("students", students);
-        request.getRequestDispatcher("../view/student/search.jsp").forward(request, response);
-
+        String classid = request.getParameter("classid");
+        
+     ;
+        
+        subjectDB sjdb = new subjectDB();
+        ArrayList<Subject> subjects =  sjdb.listSubjectInClass(classid);
+        request.setAttribute("subjects", subjects);
+        
+        MarkDB mdb = new MarkDB();
+        ArrayList<Mark> marks = mdb.getMarks();
+        request.setAttribute("marks", marks);
+        
+        request.getRequestDispatcher("../view/mark/list.jsp").forward(request, response);
     }
 
     /**
@@ -79,7 +77,7 @@ public class SearchStudentControll extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        processRequest(request, response);
     }
 
     /**
