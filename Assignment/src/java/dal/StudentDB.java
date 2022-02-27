@@ -22,38 +22,57 @@ import model.entity.Student;
  */
 public class StudentDB extends DBContext {
 
-    public ArrayList<Student> getListStudentByClassandGrade(int gradeid, String classid) {
+    public ArrayList<Student> getListStudentByClassandGrade(int gradeid, String classid, int pageindex, int pagesize) {
         ArrayList<Student> students = new ArrayList<>();
         try {
-            String sql = "SELECT studentID, firstName, lastName , gender , dob, photo, Class.classID, teacherID, Grade.GradeID   \n"
-                    + "FROM         Class INNER JOIN\n"
-                    + "                      Grade ON Class.GradeID = Grade.GradeID INNER JOIN\n"
-                    + "                      Student ON Class.classID = Student.classID\n";
+            String sql = "SELECT    studentID, firstName, lastName, gender, dob,  photo, classID, tb1.teacherID , tb1.GradeID\n"
+                    + "FROM         (select studentID, Student.classID, firstName, lastName, gender, dob, adress, photo, Class.GradeID, Class.teacherID ,ROW_NUMBER() over (Order by firstName) as row_index from Student\n"
+                    + "			inner join Class on Student.classID = Class.classID	\n"
+                    + "			inner join Grade on Grade.GradeID = Class.GradeID \n"
+                    + " \n";
 
             if ((!classid.equals("0")) && gradeid > -1) {
-                sql += " where Grade.GradeID = ? and Class.classID = ? \n"
-                        + " order by firstName";
+                sql += " where Grade.GradeID = ? and class.classID = ? \n"
+                        + " ) as tb1 where  row_index >= (?-1)*? + 1  and  row_index <= ?*? ";
             } else if (gradeid > -1 && classid.equals("0")) {
                 sql += " where Grade.GradeID = ? "
-                        + " order by firstName";
+                        + " ) as tb1 where  row_index >= (?-1)*? + 1  and  row_index <= ?*? ";
             } else if (gradeid == -1 && (!classid.equals("0"))) {
-                sql += "  where Class.classID = ? \n"
-                        + "order by firstName ";
+                sql += " where  class.classID = ?  \n"
+                        + " ) as tb1 where  row_index >= (?-1)*? + 1  and  row_index <= ?*? ";
             } else {
-                sql += "order by firstName ";
+                sql += " ) as tb1 where  row_index >= (?-1)*? + 1  and  row_index <= ?*? ";
             }
 //            
 //            
             PreparedStatement stm = connection.prepareStatement(sql);
 //          
 //          
+
             if ((!classid.equals("0")) && gradeid > -1) {
                 stm.setInt(1, gradeid);
                 stm.setString(2, classid);
+                stm.setInt(3, pageindex);
+                stm.setInt(4, pagesize);
+                stm.setInt(5, pageindex);
+                stm.setInt(6, pagesize);
             } else if (gradeid > -1 && classid.equals("0")) {
                 stm.setInt(1, gradeid);
+                stm.setInt(2, pageindex);
+                stm.setInt(3, pagesize);
+                stm.setInt(4, pageindex);
+                stm.setInt(5, pagesize);
             } else if (gradeid == -1 && (!classid.equals("0"))) {
                 stm.setString(1, classid);
+                stm.setInt(2, pageindex);
+                stm.setInt(3, pagesize);
+                stm.setInt(4, pageindex);
+                stm.setInt(5, pagesize);
+            } else {
+                stm.setInt(1, pageindex);
+                stm.setInt(2, pagesize);
+                stm.setInt(3, pageindex);
+                stm.setInt(4, pagesize);
             }
 
             ResultSet rs = stm.executeQuery();
@@ -278,7 +297,7 @@ public class StudentDB extends DBContext {
                     + "      ,[photo] = ? \n"
                     + " WHERE [studentID] = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
-           
+
             stm.setString(1, s.getClassID().getClassID());
             stm.setString(2, s.getFirstname());
             stm.setString(3, s.getLastname());
@@ -325,6 +344,50 @@ public class StudentDB extends DBContext {
             }
         }
 
+    }
+
+    public int count(int gradeid, String classid) {
+
+        try {
+            String sql = "SELECT count(*)   \n"
+                    + "FROM         Class INNER JOIN\n"
+                    + "                      Grade ON Class.GradeID = Grade.GradeID INNER JOIN\n"
+                    + "                      Student ON Class.classID = Student.classID\n";
+
+            if ((!classid.equals("0")) && gradeid > -1) {
+                sql += " where Grade.GradeID = ? and Class.classID = ? \n"
+                        + " ";
+            } else if (gradeid > -1 && classid.equals("0")) {
+                sql += " where Grade.GradeID = ? "
+                        + " ";
+            } else if (gradeid == -1 && (!classid.equals("0"))) {
+                sql += "  where Class.classID = ? \n"
+                        + " ";
+            } else {
+                sql += " ";
+            }
+//            
+//            
+            PreparedStatement stm = connection.prepareStatement(sql);
+//          
+//          
+            if ((!classid.equals("0")) && gradeid > -1) {
+                stm.setInt(1, gradeid);
+                stm.setString(2, classid);
+            } else if (gradeid > -1 && classid.equals("0")) {
+                stm.setInt(1, gradeid);
+            } else if (gradeid == -1 && (!classid.equals("0"))) {
+                stm.setString(1, classid);
+            }
+
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
     }
 
 }

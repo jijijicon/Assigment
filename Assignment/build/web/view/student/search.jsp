@@ -22,12 +22,17 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link href="../view/student/search.css" rel="stylesheet" type="text/css"/>
         <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+        <script src="../js/pagger.js" type="text/javascript" ></script>
+        
         <%
             ArrayList<Grade> gras = (ArrayList<Grade>) request.getAttribute("grades");
             ArrayList<ClassStudent> classes = (ArrayList<ClassStudent>) request.getAttribute("classes");
             int gradeID = (Integer) request.getAttribute("gradeID");
             String classID = (String) request.getAttribute("classID");
             ArrayList<Student> students = (ArrayList<Student>) request.getAttribute("students");
+            Integer pageindex = (Integer)request.getAttribute("pageindex");
+            Integer totalpage = (Integer)request.getAttribute("totalpage");
+
         %>
         <script>
             function submitGrade() {
@@ -35,7 +40,7 @@
             }
 
         </script>
-
+        
     </head>
     <body>
         <div class="container">
@@ -165,11 +170,17 @@
                 </table>
                 <a href="../student/insert" class="btn btn-primary">thêm học sinh</a>    
             </div>
+                <div id="pagger"></div>
+                
             <div class="row foo">
                 <p>trường tiểu học ABC</p>
             </div>
+                
         </div>
-
+                
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <script>
+            pagger("pagger",<%= pageindex %>,<%= totalpage %>,2,'<%= gradeID %>','<%= classID %>');
+        </script>
     </body>
 </html>

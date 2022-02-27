@@ -42,4 +42,25 @@ public class subjectDB extends DBContext {
         }
         return subjects;
     }
+
+    public Subject getSubject(String sjid) {
+        try {
+            String sql = "SELECT [subjectID]\n"
+                    + "      ,[subjectName]\n"
+                    + "  FROM [dbo].[Subject]\n"
+                    + "  where subjectID = ? ";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, sjid);
+            ResultSet rs = stm.executeQuery();
+            if(rs.next()){
+                Subject sj = new Subject();
+                sj.setSubjectID(rs.getString(1));
+                sj.setSubjectName(rs.getNString(2));
+                return sj;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(subjectDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }

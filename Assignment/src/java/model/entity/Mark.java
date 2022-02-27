@@ -13,8 +13,8 @@ public class Mark {
     private Student studentid;
     private Subject subjectid;
     private int smalltest1;
-    private int bigltest1;
-    private int finaltest1;
+    private int bigtest1;
+    private int finalltest1;
     private int smalltest2;
     private int bigtest2;
     private int finalltest2;
@@ -46,20 +46,20 @@ public class Mark {
         this.smalltest1 = smalltest1;
     }
 
-    public int getBigltest1() {
-        return bigltest1;
+    public int getBigtest1() {
+        return bigtest1;
     }
 
-    public void setBigltest1(int bigltest1) {
-        this.bigltest1 = bigltest1;
+    public void setBigtest1(int bigtest1) {
+        this.bigtest1 = bigtest1;
     }
 
-    public int getFinaltest1() {
-        return finaltest1;
+    public int getFinalltest1() {
+        return finalltest1;
     }
 
-    public void setFinaltest1(int finaltest1) {
-        this.finaltest1 = finaltest1;
+    public void setFinalltest1(int finalltest1) {
+        this.finalltest1 = finalltest1;
     }
 
     public int getSmalltest2() {
@@ -85,6 +85,8 @@ public class Mark {
     public void setFinalltest2(int finalltest2) {
         this.finalltest2 = finalltest2;
     }
+
+    
 
     
 }

@@ -41,18 +41,23 @@ public class SearchStudentControll extends HttpServlet {
         ArrayList<Grade> grades = graDB.getListGrade();
         request.setAttribute("grades", grades);
 
-        String raw_gradeID = request.getParameter("gradeID");
+       
+        int pagesize = 5;
+        
+
+        
+         String raw_gradeID = request.getParameter("gradeID");
         if (raw_gradeID == null || raw_gradeID.length() == 0) {
             raw_gradeID = "-1";
         }
         int gradeID = Integer.parseInt(raw_gradeID);
+        request.setAttribute("gradeID", gradeID);
+        
         ClassDB cdb = new ClassDB();
         ArrayList<ClassStudent> classes = cdb.getListClass(gradeID);
-
-        request.setAttribute("gradeID", gradeID);
         request.setAttribute("classes", classes);
-        String classID =(String)request.getParameter("classID");
-         
+        
+        String classID = request.getParameter("classID");
         if (classID== null || classID.length() == 0) {
             classID = "0";}
         int cl = Integer.parseInt(classID.substring(0, 1));
@@ -60,10 +65,24 @@ public class SearchStudentControll extends HttpServlet {
             classID = "0";
         }
 
+
+
+        String page = request.getParameter("page");
+        if(page == null || page.trim().length()==0){
+            page = "1";
+        }
+        int pageindex = Integer.parseInt(page);
+        
         StudentDB sdb = new StudentDB();
-        ArrayList<Student> students = sdb.getListStudentByClassandGrade(gradeID,classID);
+        ArrayList<Student> students = sdb.getListStudentByClassandGrade(gradeID,classID ,pageindex,pagesize);
         request.setAttribute("classID", classID);
         request.setAttribute("students", students);
+        
+        int count  = sdb.count(gradeID, classID);
+        int totalpage = (count%pagesize==0)?(count/pagesize):(count/pagesize)+1;
+        request.setAttribute("totalpage", totalpage);
+        request.setAttribute("pageindex", pageindex);
+        
         request.getRequestDispatcher("../view/student/search.jsp").forward(request, response);
 
     }

@@ -53,17 +53,7 @@ public class ListMarkControll extends HttpServlet {
             throws ServletException, IOException {
         String classid = request.getParameter("classid");
         
-     ;
-        
-        subjectDB sjdb = new subjectDB();
-        ArrayList<Subject> subjects =  sjdb.listSubjectInClass(classid);
-        request.setAttribute("subjects", subjects);
-        
-        MarkDB mdb = new MarkDB();
-        ArrayList<Mark> marks = mdb.getMarks();
-        request.setAttribute("marks", marks);
-        
-        request.getRequestDispatcher("../view/mark/list.jsp").forward(request, response);
+     
     }
 
     /**

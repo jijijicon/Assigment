@@ -29,8 +29,12 @@
         <servlet-class>Controller.Mark.ListMarkControll</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>DetailMark</servlet-name>
-        <servlet-class>Controller.Mark.DetailMark</servlet-class>
+        <servlet-name>DetailMarkControll</servlet-name>
+        <servlet-class>Controller.Mark.DetailMarkControll</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateMarkControll</servlet-name>
+        <servlet-class>Controller.Mark.UpdateMarkControll</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>InsertStudentControll</servlet-name>
@@ -61,8 +65,12 @@
         <url-pattern>/mark/list</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>DetailMark</servlet-name>
+        <servlet-name>DetailMarkControll</servlet-name>
         <url-pattern>/mark/detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateMarkControll</servlet-name>
+        <url-pattern>/mark/update</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

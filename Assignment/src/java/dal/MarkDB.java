@@ -41,8 +41,8 @@ public class MarkDB extends DBContext {
                 m.setSubjectid(sj);
 
                 m.setSmalltest1(rs.getInt(3));
-                m.setBigltest1(rs.getInt(4));
-                m.setFinaltest1(rs.getInt(5));
+                m.setBigtest1(rs.getInt(4));
+                m.setFinalltest1(rs.getInt(5));
                 m.setSmalltest2(rs.getInt(6));
                 m.setBigtest2(rs.getInt(7));
                 m.setFinalltest2(rs.getInt(8));
@@ -67,12 +67,11 @@ public class MarkDB extends DBContext {
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Mark m = new Mark();
-                
+
                 Student st = new Student();
                 st.setStudentID(rs.getString(1));
                 m.setStudentid(st);
-                
-                
+
                 Subject sj = new Subject();
                 sj.setSubjectID(rs.getString(2));
                 sj.setSubjectName(rs.getNString(9));
@@ -88,13 +87,13 @@ public class MarkDB extends DBContext {
                 if (raw_big1 == null) {
                     raw_big1 = "-1";
                 }
-                m.setBigltest1(Integer.parseInt(raw_big1));
+                m.setBigtest1(Integer.parseInt(raw_big1));
 
                 String raw_fi1 = rs.getString(5);
                 if (raw_fi1 == null) {
                     raw_fi1 = "-1";
                 }
-                m.setFinaltest1(Integer.parseInt(raw_fi1));
+                m.setFinalltest1(Integer.parseInt(raw_fi1));
 
                 String raw_small2 = rs.getString(6);
                 if (raw_small2 == null) {
@@ -121,5 +120,33 @@ public class MarkDB extends DBContext {
             Logger.getLogger(MarkDB.class.getName()).log(Level.SEVERE, null, ex);
         }
         return marks;
+    }
+
+    public void updateMark(Mark m) {
+        String sql = "UPDATE [dbo].[Mark]\n"
+                + "   SET \n"
+                + "	[smalltest1] = ? \n"
+                + "      ,[bigtest1] = ? \n"
+                + "      ,[finaltest1] = ? \n"
+                + "      ,[smalltest2] = ? \n"
+                + "      ,[bigtest2] = ? \n"
+                + "      ,[finaltest2] = ? \n"
+                + " WHERE studentID = ? and subjectID = ? ";
+        PreparedStatement stm = null;
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, m.getSmalltest1());
+            stm.setInt(2, m.getBigtest1());
+            stm.setInt(3, m.getFinalltest1());
+            stm.setInt(4, m.getSmalltest2() );
+            stm.setInt(5, m.getBigtest2());
+            stm.setInt(6, m.getFinalltest2());
+            stm.setString(7, m.getStudentid().getStudentID());
+            stm.setString(8, m.getSubjectid().getSubjectID());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(MarkDB.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+
     }
 }
