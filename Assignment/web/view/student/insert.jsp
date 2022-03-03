@@ -40,16 +40,17 @@
                             <input type="text" 
                                    class="form-control" name="studentid" placeholder="Enter id">
                         </div>
-                        <div class="form-group">
-                            <label> họ </label> 
+                         <div class="form-group">
+                            <label> họ và tên đệm </label> 
                             <input type="text" 
-                                   class="form-control" name="firstname" placeholder="Enter firstname">
+                                   class="form-control" name="lastname" placeholder="Enter lastname">
                         </div>
                         <div class="form-group">
                             <label> tên </label> 
                             <input type="text" 
-                                   class="form-control" name="lastname" placeholder="Enter lastname">
+                                   class="form-control" name="firstname" placeholder="Enter firstname">
                         </div>
+                       
                         <div class="form-group">
                             giới tính: 
                             <input  type="radio" name="gender" checked="checked"  value="boy">boy

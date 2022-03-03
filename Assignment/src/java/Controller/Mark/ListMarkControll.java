@@ -51,9 +51,34 @@ public class ListMarkControll extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String classid = request.getParameter("classid");
+        if(classid == null || classid.trim().length()==0){
+            classid = "1A";
+        }
         
-     
+        subjectDB sjdb = new subjectDB();
+        ArrayList<Subject> subjects = sjdb.listSubjectInClass(classid);
+        request.setAttribute("subjects", subjects);
+        
+        StudentDB stdb = new StudentDB();
+        
+        ArrayList<Student> students = stdb.getStudentsByClass(classid);
+        MarkDB mdb= new MarkDB();
+        
+        
+        for(int i = 0 ; i<students.size();i++){
+            ArrayList<Mark> marks = mdb.getMarkByStudent(students.get(i).getStudentID());
+            
+            students.get(i).setMarks(marks);
+             
+        }
+        
+  
+        
+        request.setAttribute("students", students);
+        request.getRequestDispatcher("../view/mark/list.jsp").forward(request, response);
+        
     }
 
     /**

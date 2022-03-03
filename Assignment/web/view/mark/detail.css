@@ -1,7 +1,7 @@
 
 body {
     background: white;
-    font-family: Arial, Helvetica, sans-serif !important;
+    font-family: Arial, Helvetica, sans-serif ;
     justify-content: center;
     
 }
@@ -50,29 +50,19 @@ nav a:hover {
 
 #search {
     margin-left: 20px;
-    padding-top: 7px;
+    padding-top: auto;
+    padding-bottom:  auto;
     height: 35px;
 }
 
-#button {
-    border-radius: 5px;
-    color: white !important;
-    background-color: #68bde1;
-    text-decoration: none;
-    font-family: Arial, Helvetica, sans-serif;
-    border: 1px solid white;
-    height: 25px;
-    padding-bottom: 5px;
-    font-size: 15px;
-        
-}
+
 
 #button:hover {
     background-color: #dc6f1c;
 }
 
 .dropdown-menu {
-    background-color: #2596be;
+    background-color:  #20558b;
     color: aliceblue;
     font-size: 15px;
     
@@ -80,7 +70,7 @@ nav a:hover {
 
 .dropdown-item:hover {
     color: rgba(240, 240, 228, 255)!important;
-    background-color: rgba(78, 78, 78, 0.129);
+    background-color: rgba(231, 231, 231, 0.265);
     font-weight: normal;
 }
 
@@ -113,16 +103,21 @@ table{
 }
 
 
-.btn-primary{
-    margin-bottom: 25px;
-}
-.foo{
-    text-align: center !important;
-    height: 50px;
-    padding-bottom: 20px;
-    padding-top:  20px;
-}
+
+
 
 .hk2{
     margin-top: 20px;
 }
+.foo{
+    margin-top: 50px;
+    text-align: center ;
+    height: 50px;
+    padding-bottom: 20px;
+    padding-top:  10px;
+    background-color: #20558b;
+    color: white;
+}
+
+
+

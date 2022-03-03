@@ -20,18 +20,18 @@
 
         <title>JSP Page</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        <link href="../view/student/search.css" rel="stylesheet" type="text/css"/>
+
         <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
         <script src="../js/pagger.js" type="text/javascript" ></script>
-        
+        <link href="../view/student/search.css" rel="stylesheet" type="text/css"/>
         <%
             ArrayList<Grade> gras = (ArrayList<Grade>) request.getAttribute("grades");
             ArrayList<ClassStudent> classes = (ArrayList<ClassStudent>) request.getAttribute("classes");
             int gradeID = (Integer) request.getAttribute("gradeID");
             String classID = (String) request.getAttribute("classID");
             ArrayList<Student> students = (ArrayList<Student>) request.getAttribute("students");
-            Integer pageindex = (Integer)request.getAttribute("pageindex");
-            Integer totalpage = (Integer)request.getAttribute("totalpage");
+            Integer pageindex = (Integer) request.getAttribute("pageindex");
+            Integer totalpage = (Integer) request.getAttribute("totalpage");
 
         %>
         <script>
@@ -40,7 +40,7 @@
             }
 
         </script>
-        
+
     </head>
     <body>
         <div class="container">
@@ -60,13 +60,28 @@
                             <li class="nav-item item">
                                 <a class="nav-link active" aria-current="page" href="../student/search">danh sach</a>
                             </li>
-                            <li class="nav-item item">
-                                <a class="nav-link active" aria-current="page" href="../mark/list?classid=1A">xem điểm</a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Dropdown
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="../mark/list?classid=1A">1A</a></li>
+                                    <li><a class="dropdown-item" href="../mark/list?classid=1B">1B</a></li>
+                                    <li><a class="dropdown-item" href="../mark/list?classid=2A">2A</a></li>
+                                    <li><a class="dropdown-item" href="../mark/list?classid=2B">2B</a></li>
+                                    <li><a class="dropdown-item" href="../mark/list?classid=3A">3A</a></li>
+                                    <li><a class="dropdown-item" href="../mark/list?classid=3B">3B</a></li>
+                                    <li><a class="dropdown-item" href="../mark/list?classid=4A">4A</a></li>
+                                    <li><a class="dropdown-item" href="../mark/list?classid=4B">4B</a></li>
+                                    <li><a class="dropdown-item" href="../mark/list?classid=5A">5A</a></li>
+                                    <li><a class="dropdown-item" href="../mark/list?classid=5B">5B</a></li>
+
+                                </ul>
                             </li>
 
                             <form id="search" class="d-flex nav-item item">
                                 <input class="form-control me-2" type="search" placeholder="tra tin" aria-label="Search">
-                                <input id="button" type="button" value="search">
+                                <button class="btn btn-primary" type="submit" value="add" name="add">save</button>
                             </form>
                             <li class="nav-item item">
                                 <a class="nav-link active" aria-current="page" href="#"><i class='bx bxs-user'></i> tài khoản</a>
@@ -168,19 +183,20 @@
                     <%}
                     %>
                 </table>
-                <a href="../student/insert" class="btn btn-primary">thêm học sinh</a>    
-            </div>
+                <a href="../student/insert" class="btn btn-primary">thêm học sinh</a>   
                 <div id="pagger"></div>
-                
-            <div class="row foo">
+
+            <div class="foo">
                 <p>trường tiểu học ABC</p>
             </div>
-                
+            </div>
+            
+
         </div>
-                
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         <script>
-            pagger("pagger",<%= pageindex %>,<%= totalpage %>,2,'<%= gradeID %>','<%= classID %>');
+                        pagger("pagger",<%= pageindex%>,<%= totalpage%>, 2, '<%= gradeID%>', '<%= classID%>');
         </script>
     </body>
 </html>

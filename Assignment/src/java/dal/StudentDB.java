@@ -390,4 +390,45 @@ public class StudentDB extends DBContext {
         return -1;
     }
 
+    public ArrayList<Student> getStudentsByClass(String classid) {
+        
+        ArrayList<Student> students = new ArrayList<>();
+        try {
+            String sql = "SELECT [studentID]\n"
+                    + "      ,[classID]\n"
+                    + "      ,[firstName]\n"
+                    + "      ,[lastName]\n"
+                    + "      ,[gender]\n"
+                    + "      ,[dob]\n"
+                    + "      ,[adress]\n"
+                    + "      ,[photo]\n"
+                    + "  FROM [dbo].[Student]\n"
+                    + "  where classID = ? ";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, classid);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Student s = new Student();
+                s.setStudentID(rs.getString("studentID"));
+                
+                ClassStudent cl = new ClassStudent();
+                cl.setClassID(rs.getString("classID"));
+                
+                s.setClassID(cl);
+                
+                s.setFirstname(rs.getNString("firstName"));
+                s.setLastname(rs.getNString("lastName"));
+                s.setGender(rs.getBoolean("gender"));
+                s.setDob(rs.getDate("dob"));
+                s.setAdress(rs.getNString("adress"));
+                s.setPhoto(rs.getString("photo"));
+                
+                students.add(s);
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return students;
+    }
 }

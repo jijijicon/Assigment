@@ -61,7 +61,7 @@ public class MarkDB extends DBContext {
             String sql = "SELECT   studentID, Subject.subjectID , Mark.smalltest1, Mark.bigtest1, Mark.finaltest1, Mark.smalltest2, Mark.bigtest2, Mark.finaltest2, subjectName\n"
                     + "                    FROM         Mark INNER JOIN\n"
                     + "                                          Subject ON Mark.subjectID = Subject.subjectID"
-                    + "             where studentID = ?";
+                    + "             where studentID = ? ";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, studentid);
             ResultSet rs = stm.executeQuery();
@@ -69,15 +69,15 @@ public class MarkDB extends DBContext {
                 Mark m = new Mark();
 
                 Student st = new Student();
-                st.setStudentID(rs.getString(1));
+                st.setStudentID(rs.getString("studentID"));
                 m.setStudentid(st);
 
                 Subject sj = new Subject();
-                sj.setSubjectID(rs.getString(2));
-                sj.setSubjectName(rs.getNString(9));
+                sj.setSubjectID(rs.getString("subjectID"));
+                sj.setSubjectName(rs.getNString("subjectName"));
                 m.setSubjectid(sj);
 
-                String raw_small1 = rs.getString(3);
+                String raw_small1 = rs.getString("smalltest1");
                 if (raw_small1 == null) {
                     raw_small1 = "-1";
                 }
@@ -138,7 +138,7 @@ public class MarkDB extends DBContext {
             stm.setInt(1, m.getSmalltest1());
             stm.setInt(2, m.getBigtest1());
             stm.setInt(3, m.getFinalltest1());
-            stm.setInt(4, m.getSmalltest2() );
+            stm.setInt(4, m.getSmalltest2());
             stm.setInt(5, m.getBigtest2());
             stm.setInt(6, m.getFinalltest2());
             stm.setString(7, m.getStudentid().getStudentID());
@@ -146,7 +146,74 @@ public class MarkDB extends DBContext {
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(MarkDB.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
 
+    }
+
+    public ArrayList<Mark> getMarksByStudents(Student s) {
+        ArrayList<Mark> marks = new ArrayList<>();
+        try {
+            String sql = "SELECT   studentID, Subject.subjectID , Mark.smalltest1, Mark.bigtest1, Mark.finaltest1, Mark.smalltest2, Mark.bigtest2, Mark.finaltest2, subjectName\n"
+                    + "                                      FROM         Mark INNER JOIN\n"
+                    + "                                                           Subject ON Mark.subjectID = Subject.subjectID\n"
+                    + "                               where studentID = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, s.getStudentID());
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Mark m = new Mark();
+
+                Student st = new Student();
+                st.setStudentID(rs.getString("studentID"));
+                m.setStudentid(st);
+
+                Subject sj = new Subject();
+                sj.setSubjectID(rs.getString("subjectID"));
+                sj.setSubjectName(rs.getNString("subjectName"));
+                m.setSubjectid(sj);
+
+                String raw_small1 = rs.getString("smalltest1");
+                if (raw_small1 == null) {
+                    raw_small1 = "-1";
+                }
+                m.setSmalltest1(Integer.parseInt(raw_small1));
+
+                String raw_big1 = rs.getString(4);
+                if (raw_big1 == null) {
+                    raw_big1 = "-1";
+                }
+                m.setBigtest1(Integer.parseInt(raw_big1));
+
+                String raw_fi1 = rs.getString(5);
+                if (raw_fi1 == null) {
+                    raw_fi1 = "-1";
+                }
+                m.setFinalltest1(Integer.parseInt(raw_fi1));
+
+                String raw_small2 = rs.getString(6);
+                if (raw_small2 == null) {
+                    raw_small2 = "-1";
+                }
+                m.setSmalltest2(Integer.parseInt(raw_small2));
+
+                String raw_big2 = rs.getString(7);
+                if (raw_big2 == null) {
+                    raw_big2 = "-1";
+                }
+                m.setBigtest2(Integer.parseInt(raw_big2));
+
+                String raw_fi2 = rs.getString(8);
+                if (raw_fi2 == null) {
+                    raw_fi2 = "-1";
+                }
+                m.setFinalltest2(Integer.parseInt(raw_fi2));
+
+                marks.add(m);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MarkDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return marks;
     }
 }
