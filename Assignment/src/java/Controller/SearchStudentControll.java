@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import Controller.Login.BaseAuthController;
 import dal.ClassDB;
 import dal.GradeDB;
 import dal.StudentDB;
@@ -23,7 +24,7 @@ import model.entity.Student;
  *
  * @author ASUS
  */
-public class SearchStudentControll extends HttpServlet {
+public class SearchStudentControll extends BaseAuthController {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,7 +36,7 @@ public class SearchStudentControll extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         GradeDB graDB = new GradeDB();
         ArrayList<Grade> grades = graDB.getListGrade();
@@ -96,7 +97,7 @@ public class SearchStudentControll extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
     }

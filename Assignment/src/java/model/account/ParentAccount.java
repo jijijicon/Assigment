@@ -5,6 +5,9 @@
  */
 package model.account;
 
+import java.util.ArrayList;
+import model.entity.Student;
+
 /**
  *
  * @author ASUS
@@ -12,17 +15,18 @@ package model.account;
 public class ParentAccount {
     private String username;
     private String password;
-    private String studentID;
-    private String email;
+    private Student studentID;
+    ArrayList<ParentFeature> features = new ArrayList<>();
 
-    public ParentAccount() {
+    public ArrayList<ParentFeature> getFeatures() {
+        return features;
     }
 
-    public ParentAccount(String username, String password, String studentID, String email) {
-        this.username = username;
-        this.password = password;
-        this.studentID = studentID;
-        this.email = email;
+    public void setFeatures(ArrayList<ParentFeature> features) {
+        this.features = features;
+    }
+    
+    public ParentAccount() {
     }
 
     public String getUsername() {
@@ -41,21 +45,14 @@ public class ParentAccount {
         this.password = password;
     }
 
-    public String getStudentID() {
+    public Student getStudentID() {
         return studentID;
     }
 
-    public void setStudentID(String studentID) {
+    public void setStudentID(Student studentID) {
         this.studentID = studentID;
     }
+    
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-  
+    
 }

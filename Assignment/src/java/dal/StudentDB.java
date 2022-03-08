@@ -211,13 +211,21 @@ public class StudentDB extends DBContext {
     }
 
     public void deleteStudent(Student s) {
-        String sql = "delete from Mark where studentID = ? \n"
+        String sql = "DELETE FROM [Group_Parent_Feature]\n"
+                + "      WHERE username = ? \n"
+                + "	  DELETE FROM [ParentAccount]\n"
+                + "      WHERE username= ? "
+                + " delete from Mark where studentID = ? \n"
+                + " delete from Comment where studentID = ?\n"
                 + "delete from Student where studentID = ? ";
         PreparedStatement stm = null;
         try {
             stm = connection.prepareStatement(sql);
             stm.setString(1, s.getStudentID());
+            stm.setString(5, s.getStudentID());
             stm.setString(2, s.getStudentID());
+            stm.setString(3, s.getStudentID());
+            stm.setString(4, s.getStudentID());
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(StudentDB.class.getName()).log(Level.SEVERE, null, ex);
@@ -391,7 +399,7 @@ public class StudentDB extends DBContext {
     }
 
     public ArrayList<Student> getStudentsByClass(String classid) {
-        
+
         ArrayList<Student> students = new ArrayList<>();
         try {
             String sql = "SELECT [studentID]\n"
@@ -410,21 +418,21 @@ public class StudentDB extends DBContext {
             while (rs.next()) {
                 Student s = new Student();
                 s.setStudentID(rs.getString("studentID"));
-                
+
                 ClassStudent cl = new ClassStudent();
                 cl.setClassID(rs.getString("classID"));
-                
+
                 s.setClassID(cl);
-                
+
                 s.setFirstname(rs.getNString("firstName"));
                 s.setLastname(rs.getNString("lastName"));
                 s.setGender(rs.getBoolean("gender"));
                 s.setDob(rs.getDate("dob"));
                 s.setAdress(rs.getNString("adress"));
                 s.setPhoto(rs.getString("photo"));
-                
+
                 students.add(s);
-                
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(StudentDB.class.getName()).log(Level.SEVERE, null, ex);

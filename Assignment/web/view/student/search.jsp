@@ -54,7 +54,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item item">
-                                <a class="nav-link active" aria-current="page" href="#">tin chính</a>
+                                <a class="nav-link active" aria-current="page" href="../home">tin chính</a>
                             </li>
 
                             <li class="nav-item item">
@@ -62,7 +62,7 @@
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Dropdown
+                                    Điểm
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="../mark/list?classid=1A">1A</a></li>
@@ -81,7 +81,7 @@
 
                             <form id="search" class="d-flex nav-item item">
                                 <input class="form-control me-2" type="search" placeholder="tra tin" aria-label="Search">
-                                <button class="btn btn-primary" type="submit" value="add" name="add">save</button>
+                                <button class="btn btn-primary" type="submit" value="add" name="add">search</button>
                             </form>
                             <li class="nav-item item">
                                 <a class="nav-link active" aria-current="page" href="#"><i class='bx bxs-user'></i> tài khoản</a>
@@ -170,7 +170,7 @@
 
 
                     <tr>
-                        <td> <img src="../image/<%= students.get(i).getPhoto()%>"  > </td>
+                        <td > <img class="anh" src="../image/<%= students.get(i).getPhoto()%>"  > </td>
                         <td><%= i + 1%></td>
                         <td><%= students.get(i).getStudentID()%></td>
                         <td><%= students.get(i).getLastname()%></td>
@@ -186,12 +186,12 @@
                 <a href="../student/insert" class="btn btn-primary">thêm học sinh</a>   
                 <div id="pagger"></div>
 
+
+            </div>
+
             <div class="foo">
                 <p>trường tiểu học ABC</p>
             </div>
-            </div>
-            
-
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

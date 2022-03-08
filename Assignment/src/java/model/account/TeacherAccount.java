@@ -5,6 +5,8 @@
  */
 package model.account;
 
+import model.entity.Teacher;
+
 /**
  *
  * @author ASUS
@@ -14,16 +16,9 @@ public class TeacherAccount {
     private String ussername;
     private String password;
     private String email;
-    private String teacherID;
+    
 
     public TeacherAccount() {
-    }
-
-    public TeacherAccount(String ussername, String password, String email, String teacherID) {
-        this.ussername = ussername;
-        this.password = password;
-        this.email = email;
-        this.teacherID = teacherID;
     }
 
     public String getUssername() {
@@ -50,12 +45,7 @@ public class TeacherAccount {
         this.email = email;
     }
 
-    public String getTeacherID() {
-        return teacherID;
-    }
+  
 
-    public void setTeacherID(String teacherID) {
-        this.teacherID = teacherID;
-    }
-
+    
 }

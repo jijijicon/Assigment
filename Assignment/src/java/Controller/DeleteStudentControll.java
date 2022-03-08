@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import Controller.Login.BaseAuthController;
 import dal.StudentDB;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,7 +19,7 @@ import model.entity.Student;
  *
  * @author ASUS
  */
-public class DeleteStudentControll extends HttpServlet {
+public class DeleteStudentControll extends BaseAuthController {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,7 +42,7 @@ public class DeleteStudentControll extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
          String id = request.getParameter("id");
         StudentDB db = new StudentDB();
@@ -60,7 +61,7 @@ public class DeleteStudentControll extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
        
     }

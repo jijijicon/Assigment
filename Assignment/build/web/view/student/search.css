@@ -50,8 +50,7 @@ nav a:hover {
 
 #search {
     margin-left: 20px;
-    padding-top: auto;
-    padding-bottom:  auto;
+   
     height: 35px;
 }
 
@@ -85,9 +84,7 @@ nav a:hover {
     color: #113e99 !important;
 }
 
-#selectst{
-    
-}
+
 
 table{
     padding-top: 20px !important;
@@ -116,6 +113,12 @@ table{
 
 .hk2{
     margin-top: 20px;
+}
+
+.anh{
+    width: 100px !important;
+    height: 100px !important;
+    object-fit: cover;
 }
 
 

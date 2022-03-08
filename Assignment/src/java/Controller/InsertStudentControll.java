@@ -5,8 +5,11 @@
  */
 package Controller;
 
+import Controller.Login.BaseAuthController;
 import dal.ClassDB;
+import dal.FeatureDB;
 import dal.GradeDB;
+import dal.AccountDB;
 import dal.StudentDB;
 import dal.subjectDB;
 import java.io.IOException;
@@ -18,6 +21,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.account.Feature;
+import model.account.ParentAccount;
+import model.account.ParentFeature;
 import model.entity.Grade;
 import model.entity.ClassStudent;
 import model.entity.Mark;
@@ -28,7 +34,7 @@ import model.entity.Subject;
  *
  * @author ASUS
  */
-public class InsertStudentControll extends HttpServlet {
+public class InsertStudentControll extends BaseAuthController {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -49,7 +55,7 @@ public class InsertStudentControll extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         ClassDB cdb = new ClassDB();
@@ -61,7 +67,7 @@ public class InsertStudentControll extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         Student st = new Student();
@@ -97,7 +103,26 @@ public class InsertStudentControll extends HttpServlet {
 //            System.out.println(st.getMarks().get(i).getSubjectid().getSubjectName());
 //        }
         
+        
+        
+        ParentAccount pa = new ParentAccount();
+        pa.setUsername(st.getStudentID());
+        pa.setStudentID(st);
+        pa.setPassword("123a123a");
+        
+        FeatureDB fdb = new FeatureDB();
+        ArrayList<Feature> features = fdb.getFeatures();
+        for (Feature f : features) {
+            ParentFeature pf = new ParentFeature();
+            pf.setUsername(pa);
+            pf.setFid(f);
+            pa.getFeatures().add(pf);
+        }
+        
+        AccountDB  padb = new AccountDB();
         stdb.insertStudent(st);
+        padb.insertAccountParent(pa);
+        
         response.sendRedirect("../student/search");
     }
 

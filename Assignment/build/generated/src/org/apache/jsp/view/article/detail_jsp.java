@@ -1,14 +1,10 @@
-package org.apache.jsp.view.mark;
+package org.apache.jsp.view.article;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
-import model.entity.Mark;
-import model.entity.Student;
-import model.entity.Subject;
-import java.util.ArrayList;
 
-public final class list_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class detail_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
@@ -48,10 +44,6 @@ public final class list_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("\n");
       out.write("\n");
-      out.write("\n");
-      out.write("\n");
-      out.write("\n");
-      out.write("\n");
       out.write("<!DOCTYPE html>\n");
       out.write("<html>\n");
       out.write("    <head>\n");
@@ -65,18 +57,8 @@ public final class list_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3\" crossorigin=\"anonymous\">\n");
       out.write("\n");
       out.write("        <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>\n");
-      out.write("        <script src=\"../js/pagger.js\" type=\"text/javascript\" ></script>\n");
-      out.write("        <link href=\"../view/student/search.css\" rel=\"stylesheet\" type=\"text/css\"/>\n");
       out.write("\n");
-      out.write("        ");
-
-            ArrayList<Student> students = (ArrayList<Student>) request.getAttribute("students");
-            ArrayList<Subject> subjects = (ArrayList<Subject>) request.getAttribute("subjects");
-
-        
-      out.write("    \n");
-      out.write("\n");
-      out.write("\n");
+      out.write("        <link href=\"../view/article/detail.css\" rel=\"stylesheet\" type=\"text/css\"/>\n");
       out.write("\n");
       out.write("\n");
       out.write("    </head>\n");
@@ -84,7 +66,7 @@ public final class list_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <div class=\"container\">\n");
       out.write("            <nav id=\"nav\" class=\"navbar navbar-expand-lg navbar-light bg-light\">\n");
       out.write("                <div class=\"container-fluid\">\n");
-      out.write("                    <a class=\"navbar-brand\" href=\"#\">            \n");
+      out.write("                    <a class=\"navbar-brand\" href=\"home\">            \n");
       out.write("                        <img id=\"iconhome\" src=\"../image/42496-school-icon (1).png\" alt=\"\"/> </a>\n");
       out.write("                    <button class=\"navbar-toggler\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#navbarSupportedContent\" aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n");
       out.write("                        <span class=\"navbar-toggler-icon\"></span>\n");
@@ -92,7 +74,7 @@ public final class list_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                    <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">\n");
       out.write("                        <ul class=\"navbar-nav me-auto mb-2 mb-lg-0\">\n");
       out.write("                            <li class=\"nav-item item\">\n");
-      out.write("                                <a class=\"nav-link active\" aria-current=\"page\" href=\"#\">tin chính</a>\n");
+      out.write("                                <a class=\"nav-link active\" aria-current=\"page\" href=\"home\">tin chính</a>\n");
       out.write("                            </li>\n");
       out.write("\n");
       out.write("                            <li class=\"nav-item item\">\n");
@@ -119,7 +101,7 @@ public final class list_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("                            <form id=\"search\" class=\"d-flex nav-item item\">\n");
       out.write("                                <input class=\"form-control me-2\" type=\"search\" placeholder=\"tra tin\" aria-label=\"Search\">\n");
-      out.write("                                <button class=\"btn btn-primary\" type=\"submit\" value=\"add\" name=\"add\">save</button>\n");
+      out.write("                                <button class=\"btn btn-primary\" type=\"submit\" value=\"add\" name=\"add\">search</button>\n");
       out.write("                            </form>\n");
       out.write("                            <li class=\"nav-item item\">\n");
       out.write("                                <a class=\"nav-link active\" aria-current=\"page\" href=\"#\"><i class='bx bxs-user'></i> tài khoản</a>\n");
@@ -155,110 +137,32 @@ public final class list_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                    <span class=\"visually-hidden\">Next</span>\n");
       out.write("                </button>\n");
       out.write("            </div>\n");
-      out.write("            <div class=\"content\">\n");
       out.write("\n");
-      out.write("                <table class=\"table table-bordered\">\n");
-      out.write("                    <thead>\n");
-      out.write("                        <tr>\n");
-      out.write("                            <th></th>\n");
-      out.write("                            <th scope=\"col\" colspan=\"4\"> học kì 1 </th>\n");
-      out.write("                            <th scope=\"col\" colspan=\"4\"> học kì 2 </th>\n");
-      out.write("\n");
-      out.write("                        </tr>\n");
-      out.write("                        <tr>\n");
-      out.write("                            <th scope=\"col\"> tên </th>\n");
-      out.write("                                ");
- for (Subject sj : subjects) {
-      out.write("\n");
-      out.write("                            <th scope=\"col\">");
-      out.print( sj.getSubjectName());
-      out.write("</th>\n");
-      out.write("                                ");
-}
-                                
-      out.write("\n");
-      out.write("                            <th scope=\"col\" > xếp loại </th>\n");
-      out.write("                            ");
- for (Subject sj : subjects) {
-      out.write("\n");
-      out.write("                            <th scope=\"col\">");
-      out.print( sj.getSubjectName());
-      out.write("</th>\n");
-      out.write("                                ");
-}
-                                
-      out.write("\n");
-      out.write("                            <th scope=\"col\" > xếp loại </th>\n");
-      out.write("                        </tr>\n");
-      out.write("                    </thead>\n");
-      out.write("                    <tbody>\n");
-      out.write("                        \n");
-      out.write("                        ");
- for (Student st : students) {
-      out.write("\n");
-      out.write("                        <tr>\n");
-      out.write("                            <th scope=\"row\" >");
-      out.print( st.getLastname()+" "+st.getFirstname() );
-      out.write("</th>\n");
-      out.write("                            \n");
-      out.write("                            ");
-for (int j = 0; j < st.getMarks().size(); j++) {
-      out.write("\n");
-      out.write("                            <td>");
-if(st.getMarks().get(j).getFinalltest1()==-1){
-}
-                            else{
-      out.print( st.getMarks().get(j).getFinalltest1()  );
-}
-      out.write("</td>\n");
-      out.write("                            \n");
-      out.write("                            ");
-}
-      out.write("\n");
-      out.write("                            <td></td>\n");
-      out.write("                            ");
-for (int j = 0; j < st.getMarks().size(); j++) {
-      out.write("\n");
-      out.write("                            <td>");
-if(st.getMarks().get(j).getFinalltest2()==-1){
-}
-                            else{
-      out.print( st.getMarks().get(j).getFinalltest2()  );
-}
-      out.write("</td> \n");
-      out.write("                            ");
-}
-      out.write("\n");
-      out.write("                            <td>\n");
-      out.write("                            ");
-for (int j = 0; j < st.getMarks().size(); j++) {
-      out.write("\n");
-      out.write("                            \n");
-      out.write("                            ");
-}
-      out.write("\n");
-      out.write("                            </td>\n");
-      out.write("                        </tr>\n");
-      out.write("                        ");
-}
-      out.write("\n");
-      out.write("                    </tbody>\n");
-      out.write("                </table>\n");
-      out.write("\n");
-      out.write("                <div class=\"foo\">\n");
-      out.write("                    <p>trường tiểu học ABC</p>\n");
+      out.write("            <div class=\"row\">\n");
+      out.write("                <div class=\"col-sm-3\">\n");
+      out.write("                    <button  class=\"btn btn-primary\">đăng tin</button>\n");
       out.write("                </div>\n");
       out.write("            </div>\n");
       out.write("\n");
+      out.write("            <div class=\"content\">\n");
+      out.write("                \n");
+      out.write("                \n");
+      out.write("            </div>\n");
       out.write("\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("            <div class=\"foo\">\n");
+      out.write("                <p>trường tiểu học ABC</p>\n");
+      out.write("            </div>\n");
       out.write("        </div>\n");
       out.write("\n");
-      out.write("        <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p\" crossorigin=\"anonymous\"></script>\n");
-      out.write("        <script>\n");
-      out.write("            \n");
-      out.write("        </script>\n");
-      out.write("    </body>\n");
-      out.write("</html>");
+      out.write("\n");
+      out.write("    </div>\n");
+      out.write("\n");
+      out.write("    <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p\" crossorigin=\"anonymous\"></script>\n");
+      out.write("\n");
+      out.write("</body>\n");
+      out.write("</html>\n");
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){
         out = _jspx_out;

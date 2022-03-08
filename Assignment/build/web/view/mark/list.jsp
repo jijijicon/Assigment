@@ -23,12 +23,11 @@
 
         <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
         <script src="../js/pagger.js" type="text/javascript" ></script>
-        <link href="../view/student/search.css" rel="stylesheet" type="text/css"/>
+        <link href="../view/mark/list.css" rel="stylesheet" type="text/css"/>
 
         <%
             ArrayList<Student> students = (ArrayList<Student>) request.getAttribute("students");
             ArrayList<Subject> subjects = (ArrayList<Subject>) request.getAttribute("subjects");
-
         %>    
 
 
@@ -138,7 +137,7 @@
 
                         <% for (Student st : students) {%>
                         <tr>
-                            <th scope="row" ><%= st.getLastname() + " " + st.getFirstname()%></th>
+                            <th scope="row" ><a class="name" href="../mark/detail?studentid=<%= st.getStudentID() %>"><%= st.getLastname() + " " + st.getFirstname()%></a></th>
 
                             <%for (int j = 0; j < st.getMarks().size(); j++) {%>
                             <td><%if (st.getMarks().get(j).getFinalltest1() == -1) {%><%} else {%><%= st.getMarks().get(j).getFinalltest1()%><%}%></td>
