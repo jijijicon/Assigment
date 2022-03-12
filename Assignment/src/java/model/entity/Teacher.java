@@ -11,20 +11,13 @@ package model.entity;
  */
 public class Teacher {
     private String teacherID;
-    private String teacherName;
+    private String firstname;
+    private String lastname;
     private boolean gender;
-    private String phone;
-    private String email;
-
+    private boolean admin;
+    
+    
     public Teacher() {
-    }
-
-    public Teacher(String teacherID, String teacherName, boolean gender, String phone, String email) {
-        this.teacherID = teacherID;
-        this.teacherName = teacherName;
-        this.gender = gender;
-        this.phone = phone;
-        this.email = email;
     }
 
     public String getTeacherID() {
@@ -35,12 +28,20 @@ public class Teacher {
         this.teacherID = teacherID;
     }
 
-    public String getTeacherName() {
-        return teacherName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setTeacherName(String teacherName) {
-        this.teacherName = teacherName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public boolean isGender() {
@@ -51,20 +52,13 @@ public class Teacher {
         this.gender = gender;
     }
 
-    public String getPhone() {
-        return phone;
+    public boolean isAdmin() {
+        return admin;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    
+  
 }

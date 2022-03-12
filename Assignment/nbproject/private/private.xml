@@ -3,31 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/src/java/Controller/Article/InsertArticleControll.java</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/src/java/Controller/Article/DetailArticleControll.java</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/mark/list.jsp</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/src/java/Controller/Login/LoginControll.java</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/src/java/model/entity/Article.java</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/src/java/dal/CommentDB.java</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/student/search.jsp</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/src/java/Controller/Mark/DetailMarkControll.java</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/src/java/model/entity/Comment.java</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/mark/detail.jsp</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/src/java/Controller/Login/BaseAuthController.java</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/src/java/Controller/home.java</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/src/java/model/entity/Subject.java</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/src/java/model/entity/Grade.java</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/src/java/Controller/InsertStudentControll.java</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/article/insert.jsp</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/mark/detail.css</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/src/java/model/entity/Mark.java</file>
             <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/article/detail.jsp</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/home/home.jsp</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/article/detail.css</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/home/home.css</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/src/java/model/entity/Student.java</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/src/java/dal/ArticleDB.java</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/student/infor.jsp</file>
+            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/student/search.jsp</file>
+            <file>file:/D:/2022%20spring/Assignment/Assignment/src/java/Controller/Login/LogoutControll.java</file>
         </group>
     </open-files>
 </project-private>

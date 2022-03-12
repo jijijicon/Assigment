@@ -16,7 +16,7 @@ public class TeacherAccount {
     private String ussername;
     private String password;
     private String email;
-    
+    private Teacher teacherid; 
 
     public TeacherAccount() {
     }

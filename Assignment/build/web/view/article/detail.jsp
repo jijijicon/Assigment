@@ -4,6 +4,7 @@
     Author     : ASUS
 --%>
 
+<%@page import="model.entity.Article"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -20,7 +21,10 @@
         <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
 
         <link href="../view/article/detail.css" rel="stylesheet" type="text/css"/>
-
+        <%
+         Article art =  (Article)request.getAttribute("art");
+         String admin = (String) request.getSession().getAttribute("admin");
+        %>
 
     </head>
     <body>
@@ -35,7 +39,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item item">
-                                <a class="nav-link active" aria-current="page" href="home">tin chính</a>
+                                <a class="nav-link active" aria-current="page" href="../home">tin chính</a>
                             </li>
 
                             <li class="nav-item item">
@@ -101,11 +105,19 @@
 
             <div class="row">
                 <div class="col-sm-3">
-                    <button  class="btn btn-primary">đăng tin</button>
+                    <a class="btn btn-primary" href="../article/update?aid="<%= art.getId() %>>chỉnh sửa</a>
                 </div>
             </div>
 
             <div class="content">
+                <h2><%= art.getTitle() %></h2>
+                <i><%= art.getDate() %></i>
+                <br>
+                <br>
+                <br>
+                <% if(art.getImage().equals("0")) {%>  <img  src="../image/<%= art.getImage() %>" alt=""/> <%}%>
+                <br>
+                <p><%= art.getContent() %></p>
                 
                 
             </div>

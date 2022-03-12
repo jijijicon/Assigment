@@ -4,6 +4,7 @@
     Author     : ASUS
 --%>
 
+<%@page import="model.entity.Article"%>
 <%@page import="model.entity.Student"%>
 <%@page import="model.entity.Grade"%>
 <%@page import="model.entity.ClassStudent"%>
@@ -24,8 +25,13 @@
         <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
 
         <link href="view/home/home.css" rel="stylesheet" type="text/css"/>
-
-
+        <%
+            ArrayList<Article> arts = (ArrayList<Article>) request.getAttribute("arts");
+            int pageindex = (Integer) request.getAttribute("pageindex");
+            int totalpage = (Integer) request.getAttribute("totalpage");
+        %>
+        <script src="view/home/home.js" type="text/javascript"></script>
+        
     </head>
     <body>
         <div class="container">
@@ -105,14 +111,19 @@
 
             <div class="row">
                 <div class="col-sm-3">
-                    <button onclick="window.location.href='article/insert'"  class="btn btn-primary">đăng tin</button>
+                    <button onclick="window.location.href = 'article/insert'"  class="btn btn-primary">đăng tin</button>
                 </div>
             </div>
 
+            
 
+            <% for (Article a : arts) {%>
+            <p><%= a.getTitle() %></p>
+            <%   }
+            %>
+            <div id="pagger">
 
-
-
+            </div>
             <div class="foo">
                 <p>trường tiểu học ABC</p>
             </div>
@@ -120,7 +131,9 @@
 
 
     </div>
-
+    <script>
+        phantrang("pagger", <%= pageindex%>, <%= totalpage%>, 2);
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
 </body>

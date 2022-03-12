@@ -48,6 +48,34 @@
         <servlet-name>DetailArticleControll</servlet-name>
         <servlet-class>Controller.Article.DetailArticleControll</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateArticleControll</servlet-name>
+        <servlet-class>Controller.Article.UpdateArticleControll</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InsertTeacherControll</servlet-name>
+        <servlet-class>Controller.teacher.InsertTeacherControll</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DetailTeacherControll</servlet-name>
+        <servlet-class>Controller.teacher.DetailTeacherControll</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteTeacherController</servlet-name>
+        <servlet-class>Controller.teacher.DeleteTeacherController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListTeacherControll</servlet-name>
+        <servlet-class>Controller.teacher.ListTeacherControll</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateTeacherControll</servlet-name>
+        <servlet-class>Controller.teacher.UpdateTeacherControll</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogoutControll</servlet-name>
+        <servlet-class>Controller.Login.LogoutControll</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InsertStudentControll</servlet-name>
         <url-pattern>/student/insert</url-pattern>
@@ -95,6 +123,34 @@
     <servlet-mapping>
         <servlet-name>DetailArticleControll</servlet-name>
         <url-pattern>/article/detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateArticleControll</servlet-name>
+        <url-pattern>/article/update</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InsertTeacherControll</servlet-name>
+        <url-pattern>/teacher/insert</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DetailTeacherControll</servlet-name>
+        <url-pattern>/teacher/infor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteTeacherController</servlet-name>
+        <url-pattern>/teacher/delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListTeacherControll</servlet-name>
+        <url-pattern>/teacher/list</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateTeacherControll</servlet-name>
+        <url-pattern>/teacher/update</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutControll</servlet-name>
+        <url-pattern>/logout</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

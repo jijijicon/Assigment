@@ -5,12 +5,15 @@
  */
 package Controller;
 
+import dal.ArticleDB;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.entity.Article;
 
 /**
  *
@@ -29,6 +32,25 @@ public class home extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        ArticleDB adb = new ArticleDB();
+        int pagesize = 2;
+        String page = request.getParameter("page");
+        if(page ==null || page.trim().length()==0) page="1";
+        
+        int pageindex  = Integer.parseInt(page);
+   
+        ArrayList<Article> arts = adb.getArticles(pageindex, pagesize);
+        request.setAttribute("arts", arts);
+        
+        int count  = adb.count();
+        
+        int totalpage = (count%pagesize==0)?(count/pagesize):(count/pagesize)+1;
+        
+        request.setAttribute("pageindex", pageindex);
+        request.setAttribute("totalpage", totalpage);
+        
+        
         request.getRequestDispatcher("view/home/home.jsp").forward(request, response);
     }
 

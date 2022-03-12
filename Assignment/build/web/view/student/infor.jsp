@@ -33,6 +33,7 @@
 
         <%
             Student st = (Student) request.getAttribute("st");
+            String admin = (String) request.getSession().getAttribute("admin");
         %>
 
 
@@ -49,22 +50,52 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item item">
-                                <a class="nav-link active" aria-current="page" href="#">tin chính</a>
+                                <a class="nav-link active" aria-current="page" href="../home">tin chính</a>
                             </li>
 
                             <li class="nav-item item">
-                                <a class="nav-link active" aria-current="page"href="../student/search">danh sach</a>
+                                <a class="nav-link active" aria-current="page" href="../student/search">danh sach</a>
                             </li>
-                            <li class="nav-item item">
-                                <a class="nav-link active" aria-current="page" href="#">xem điểm</a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Điểm
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="../mark/list?classid=1A">1A</a></li>
+                                    <li><a class="dropdown-item" href="../mark/list?classid=1B">1B</a></li>
+                                    <li><a class="dropdown-item" href="../mark/list?classid=2A">2A</a></li>
+                                    <li><a class="dropdown-item" href="../mark/list?classid=2B">2B</a></li>
+                                    <li><a class="dropdown-item" href="../mark/list?classid=3A">3A</a></li>
+                                    <li><a class="dropdown-item" href="../mark/list?classid=3B">3B</a></li>
+                                    <li><a class="dropdown-item" href="../mark/list?classid=4A">4A</a></li>
+                                    <li><a class="dropdown-item" href="../mark/list?classid=4B">4B</a></li>
+                                    <li><a class="dropdown-item" href="../mark/list?classid=5A">5A</a></li>
+                                    <li><a class="dropdown-item" href="../mark/list?classid=5B">5B</a></li>
+
+                                </ul>
                             </li>
 
-                            <form id="search" class="d-flex nav-item item">
-                                <input class="form-control me-2" type="search" placeholder="tra tin" aria-label="Search">
-                                <input id="button" type="button" value="search">
+                           <% if (admin.equals("1")) {%>
+                            <li class="nav-item item">
+                                <a class="nav-link active" aria-current="page" href="../teacher/list">ds giáo viên</a>
+                            </li>
+                            <form id="search" class="d-flex nav-item item" action="../student/infor" >
+                                <input class="form-control me-2" type="text" name="studentid" placeholder="tra cứ thông tin học sinh" aria-label="Search">
+                                <button class="btn btn-primary" type="submit" value="add" name="add">search</button>
+
                             </form>
-                            <li class="nav-item item">
-                                <a class="nav-link active" aria-current="page" href="#"><i class='bx bxs-user'></i> tài khoản</a>
+                            
+                            <%}%>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class='bx bxs-user'> </i><%= admin.equals("1") ? "  giáo viên" : "  phụ huynh"%></a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="../mark/list?classid=1A">đổi mật khẩu</a></li>
+
+                                    <li><a class="dropdown-item" href="../mark/list?classid=2A">thông tin</a></li>
+                                    <li><a class="dropdown-item" href="../mark/list?classid=1B">đăng xuất</a></li>
+
+                                </ul>
                             </li>
                         </ul>
 
@@ -72,6 +103,7 @@
                 </div>
             </nav>
             <div class="information">
+                <% if (st == null) {%> không thể tìm thấy sinh viên <%} else {%>
                 <div class="row"
                      style="border: 1px darkgrey solid; border-radius: 10px; width: 50%; margin: 0 auto; padding: 20px;">
                     <div class="col-sm-3">
@@ -111,12 +143,12 @@
 
 
                         <a class="btn btn-danger" href="#" onclick="deleteStudent('<%= st.getStudentID()%>')">xóa</a>
-                        <a class="btn btn-warning" href="../student/update?id=<%= st.getStudentID() %>" >chỉnh sửa</a>
-                        
+                        <a class="btn btn-warning" href="../student/update?id=<%= st.getStudentID()%>" >chỉnh sửa</a>
+
 
 
                     </div>
-                </div>
+                </div><%}%>
             </div>
 
         </div>

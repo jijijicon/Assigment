@@ -74,7 +74,8 @@ public class InsertArticleControll extends HttpServlet {
         
         ArticleDB db = new ArticleDB();
         
-        db.insertArticle(art);
+        Article a = db.insertArticle(art);
+        response.sendRedirect("detail?aid="+a.getId());
         
     }
 

@@ -76,7 +76,7 @@ public class ListMarkControll extends BaseAuthController {
         }
         
   
-        
+        request.setAttribute("classid", classid);
         request.setAttribute("students", students);
         request.getRequestDispatcher("../view/mark/list.jsp").forward(request, response);
         

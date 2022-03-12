@@ -33,6 +33,9 @@
             Integer pageindex = (Integer) request.getAttribute("pageindex");
             Integer totalpage = (Integer) request.getAttribute("totalpage");
 
+            String admin = (String) request.getSession().getAttribute("admin");
+
+
         %>
         <script>
             function submitGrade() {
@@ -79,12 +82,28 @@
                                 </ul>
                             </li>
 
-                            <form id="search" class="d-flex nav-item item">
-                                <input class="form-control me-2" type="search" placeholder="tra tin" aria-label="Search">
-                                <button class="btn btn-primary" type="submit" value="add" name="add">search</button>
-                            </form>
+
+                            <% if (admin.equals("1")) {%>
                             <li class="nav-item item">
-                                <a class="nav-link active" aria-current="page" href="#"><i class='bx bxs-user'></i> tài khoản</a>
+                                <a class="nav-link active" aria-current="page" href="../teacher/list">ds giáo viên</a>
+                            </li>
+                            <form id="search" class="d-flex nav-item item" action="../student/infor" >
+                                <input class="form-control me-2" type="text" name="studentid" placeholder="tra cứ thông tin học sinh" aria-label="Search">
+                                <button class="btn btn-primary" type="submit" value="add" name="add">search</button>
+
+                            </form>
+                            
+                            <%}%>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class='bx bxs-user'> </i><%= admin.equals("1") ? "  giáo viên" : "  phụ huynh"%></a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="../mark/list?classid=1A">đổi mật khẩu</a></li>
+
+                                    <li><a class="dropdown-item" href="../mark/list?classid=2A">thông tin</a></li>
+                                    <li><a class="dropdown-item" href="../logout">đăng xuất</a></li>
+
+                                </ul>
                             </li>
                         </ul>
 

@@ -121,9 +121,9 @@ public class AccountDB extends DBContext {
 
     public TeacherAccount getTA(String username, String password) {
         try {
-            String sql = "SELECT    TeacherAccount.username, TeacherAccount.password, TeacherAccount.email\n" +
-"                    FROM         TeacherAccount INNER JOIN\n" +
-"                                        Teacher ON TeacherAccount.teacherID = Teacher.teacherID"
+            String sql = "SELECT    TeacherAccount.username, TeacherAccount.password\n"
+                    + "                    FROM         TeacherAccount INNER JOIN\n"
+                    + "                                        Teacher ON TeacherAccount.teacherID = Teacher.teacherID"
                     + "					  where TeacherAccount.username = ? and [password] = ?  ";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, username);
@@ -134,11 +134,6 @@ public class AccountDB extends DBContext {
                 TeacherAccount ta = new TeacherAccount();
                 ta.setUssername(rs.getString(1));
                 ta.setPassword(rs.getString(2));
-                ta.setEmail(rs.getString(3));
-                
-                
-                
-                
                 
                 return ta;
 
@@ -148,4 +143,49 @@ public class AccountDB extends DBContext {
         }
         return null;
     }
+
+    public void insertTeacherAccount(Teacher t, String password) {
+        String sql = "INSERT INTO [TeacherAccount]\n"
+                + "           ([username]\n"
+                + "           ,[password]\n"
+                + "           ,[teacherID])\n"
+                + "     VALUES\n"
+                + "           (?\n"
+                + "           ,?\n"
+                + "           ,?)";
+        PreparedStatement stm = null;
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, t.getTeacherID());
+            stm.setNString(2, password);
+            stm.setString(3, t.getTeacherID());
+            
+
+            stm.executeUpdate();
+//            String sql_get_id ="select studentid as sid";
+//            ResultSet rs = stm.executeQuery();
+//            
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDB.class.getName()).log(Level.SEVERE, null, ex);
+
+        } finally {
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(AccountDB.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(AccountDB.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
+
 }

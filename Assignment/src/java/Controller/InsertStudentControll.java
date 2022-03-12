@@ -123,7 +123,7 @@ public class InsertStudentControll extends BaseAuthController {
         stdb.insertStudent(st);
         padb.insertAccountParent(pa);
         
-        response.sendRedirect("../student/search");
+        response.sendRedirect("../student/infor?studentid="+st.getStudentID());
     }
 
     @Override

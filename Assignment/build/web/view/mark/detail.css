@@ -141,8 +141,16 @@ table{
 .cmt{
     border-radius: 3px;
    
-    background-color: white;
+    background-color:	rgba(147, 147, 147, 0.25);
     
     height: 30px;
     
+}
+.date{
+    padding-top: 0px;
+    font-size: 10px;
+}
+h5{
+    margin-bottom: 0px;
+    color: #20558b;
 }
