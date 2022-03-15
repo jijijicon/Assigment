@@ -4,6 +4,8 @@
     Author     : ASUS
 --%>
 
+<%@page import="model.account.TeacherAccount"%>
+<%@page import="model.account.ParentAccount"%>
 <%@page import="model.entity.Student"%>
 <%@page import="model.entity.Grade"%>
 <%@page import="model.entity.ClassStudent"%>
@@ -34,7 +36,9 @@
             Integer totalpage = (Integer) request.getAttribute("totalpage");
 
             String admin = (String) request.getSession().getAttribute("admin");
-
+            
+            
+            
 
         %>
         <script>
@@ -92,15 +96,18 @@
                                 <button class="btn btn-primary" type="submit" value="add" name="add">search</button>
 
                             </form>
-                            
+
                             <%}%>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class='bx bxs-user'> </i><%= admin.equals("1") ? "  giáo viên" : "  phụ huynh"%></a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="../mark/list?classid=1A">đổi mật khẩu</a></li>
+                                    <li><a class="dropdown-item" href="../login/changepass">đổi mật khẩu</a></li>
 
-                                    <li><a class="dropdown-item" href="../mark/list?classid=2A">thông tin</a></li>
+                                    <li> <% if (admin.equals("0")) {
+                                        ParentAccount pacc = (ParentAccount) request.getSession().getAttribute("account");%> <a class="dropdown-item" href="../student/infor?studentid=<%= pacc.getStudentID().getStudentID() %>">thông tin</a> <%} 
+                                        else if (admin.equals("1")) {
+                                        TeacherAccount tacc = (TeacherAccount) request.getSession().getAttribute("account");%><a class="dropdown-item" href="../teacher/infor?id=<%= tacc.getTeacherid().getTeacherID() %>">thông tin</a><%}%></li>
                                     <li><a class="dropdown-item" href="../logout">đăng xuất</a></li>
 
                                 </ul>
@@ -196,7 +203,7 @@
                         <td><%= students.get(i).getFirstname()%></td>
                         <td><% if (students.get(i).isGender()) { %>nam<%} else { %>nữ<%}%></td>
                         <td><%= students.get(i).getDob()%></td>
-                        <td><%= students.get(i).getClassID().getClassID()%></td>
+                        <td><a href="../class/detail?clid=<%= students.get(i).getClassID().getClassID()%>"><%= students.get(i).getClassID().getClassID()%></a></td>
                         <td><a href="infor?studentid=<%= students.get(i).getStudentID()%>" >chi tiet</a></td>
                     </tr>
                     <%}

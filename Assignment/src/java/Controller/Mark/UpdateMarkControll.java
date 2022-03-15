@@ -129,7 +129,7 @@ public class UpdateMarkControll extends BaseAuthController {
         MarkDB mdb = new MarkDB();
         
         mdb.updateMark(m);
-        response.sendRedirect("../mark/detail?studentid="+st.getStudentID());
+        response.sendRedirect("../mark/update?stid="+st.getStudentID());
     }
 
     /**

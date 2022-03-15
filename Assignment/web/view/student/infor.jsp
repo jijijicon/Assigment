@@ -4,6 +4,8 @@
     Author     : ASUS
 --%>
 
+<%@page import="model.account.TeacherAccount"%>
+<%@page import="model.account.ParentAccount"%>
 <%@page import="model.entity.Student"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -75,7 +77,8 @@
                                 </ul>
                             </li>
 
-                           <% if (admin.equals("1")) {%>
+
+                            <% if (admin.equals("1")) {%>
                             <li class="nav-item item">
                                 <a class="nav-link active" aria-current="page" href="../teacher/list">ds giáo viên</a>
                             </li>
@@ -84,16 +87,19 @@
                                 <button class="btn btn-primary" type="submit" value="add" name="add">search</button>
 
                             </form>
-                            
+
                             <%}%>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class='bx bxs-user'> </i><%= admin.equals("1") ? "  giáo viên" : "  phụ huynh"%></a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="../mark/list?classid=1A">đổi mật khẩu</a></li>
+                                    <li><a class="dropdown-item" href="../login/changepass">đổi mật khẩu</a></li>
 
-                                    <li><a class="dropdown-item" href="../mark/list?classid=2A">thông tin</a></li>
-                                    <li><a class="dropdown-item" href="../mark/list?classid=1B">đăng xuất</a></li>
+                                    <li> <% if (admin.equals("0")) {
+                                        ParentAccount pacc = (ParentAccount) request.getSession().getAttribute("account");%> <a class="dropdown-item" href="../student/infor?studentid=<%= pacc.getStudentID().getStudentID() %>">thông tin</a> <%} 
+                                        else if (admin.equals("1")) {
+                                    TeacherAccount tacc = (TeacherAccount) request.getSession().getAttribute("account");%><a class="dropdown-item" href="../teacher/infor?id=<%= tacc.getTeacherid().getTeacherID() %>">thông tin</a><%}%></li>
+                                    <li><a class="dropdown-item" href="../logout">đăng xuất</a></li>
 
                                 </ul>
                             </li>
@@ -106,10 +112,10 @@
                 <% if (st == null) {%> không thể tìm thấy sinh viên <%} else {%>
                 <div class="row"
                      style="border: 1px darkgrey solid; border-radius: 10px; width: 50%; margin: 0 auto; padding: 20px;">
-                    <div class="col-sm-3">
-                        <img src="../image/<%= st.getPhoto()%>" >
+                    <div class="col-sm-4">
+                        <img id="photo" src="../image/<%= st.getPhoto()%>" >
                     </div>
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
 
                         <h2 class="myclass"> <%= st.getLastname()%> <%= st.getFirstname()%></h2>
 
@@ -141,9 +147,12 @@
                         </div>
 
 
-
+                        <a class="btn btn-primary" href="../mark/detail?studentid=<%= st.getStudentID()%>" >xem điểm</a>
+                        <% if(admin.equals("1")) {%>
                         <a class="btn btn-danger" href="#" onclick="deleteStudent('<%= st.getStudentID()%>')">xóa</a>
                         <a class="btn btn-warning" href="../student/update?id=<%= st.getStudentID()%>" >chỉnh sửa</a>
+                        <%}%>
+                       
 
 
 

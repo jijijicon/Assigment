@@ -5,6 +5,7 @@
  */
 package Controller.Article;
 
+import Controller.Login.BaseAuthController;
 import dal.ArticleDB;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,7 +19,7 @@ import model.entity.Article;
  *
  * @author ASUS
  */
-public class DetailArticleControll extends HttpServlet {
+public class DetailArticleControll extends BaseAuthController {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,7 +42,7 @@ public class DetailArticleControll extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int aid = Integer.parseInt(request.getParameter("aid"));
         ArticleDB adb = new ArticleDB();
@@ -59,7 +60,7 @@ public class DetailArticleControll extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
         

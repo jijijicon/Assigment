@@ -15,6 +15,7 @@ import model.entity.ClassStudent;
 import model.entity.Grade;
 import model.entity.Mark;
 import model.entity.Student;
+import model.entity.Teacher;
 
 /**
  *
@@ -87,7 +88,10 @@ public class StudentDB extends DBContext {
 
                 ClassStudent c = new ClassStudent();
                 c.setClassID(rs.getString(7));
-                c.setTeacherID(rs.getString(8));
+                Teacher t = new Teacher();
+                t.setTeacherID(rs.getString(8));
+
+                c.setTeacherID(t);
 
                 Grade d = new Grade(rs.getInt(9));
                 c.setGradeID(d);
@@ -195,7 +199,10 @@ public class StudentDB extends DBContext {
 
                 ClassStudent c = new ClassStudent();
                 c.setClassID(rs.getString(8));
-                c.setTeacherID(rs.getString(9));
+
+                Teacher t = new Teacher();
+                t.setTeacherID(rs.getString(9));
+                c.setTeacherID(t);
 
                 Grade d = new Grade(rs.getInt(10));
                 c.setGradeID(d);
@@ -439,4 +446,72 @@ public class StudentDB extends DBContext {
         }
         return students;
     }
+
+    public ArrayList<Student> getStudentAll() {
+        ArrayList<Student> students = new ArrayList<>();
+        try {
+            String sql = "SELECT studentID, firstName, lastName , gender , dob, adress,photo, Class.classID, teacherID, Grade.GradeID   \n"
+                    + "FROM         Class INNER JOIN\n"
+                    + "                      Grade ON Class.GradeID = Grade.GradeID INNER JOIN\n"
+                    + "                      Student ON Class.classID = Student.classID\n";
+
+            PreparedStatement stm = connection.prepareStatement(sql);
+
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Student st = new Student();
+                st.setStudentID(rs.getString(1));
+                st.setFirstname(rs.getNString(2));
+                st.setLastname(rs.getNString(3));
+                st.setGender(rs.getBoolean(4));
+                st.setDob(rs.getDate(5));
+                st.setAdress(rs.getNString(6));
+                st.setPhoto(rs.getString(7));
+
+                ClassStudent c = new ClassStudent();
+                c.setClassID(rs.getString(8));
+                Teacher t = new Teacher();
+                t.setTeacherID(rs.getString(9));
+                c.setTeacherID(t);
+
+                Grade d = new Grade(rs.getInt(10));
+                c.setGradeID(d);
+
+                st.setClassID(c);
+
+                students.add(st);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return students;
+    }
+
+    public int countStudentInClass(String classid) {
+
+        try {
+            String sql = "SELECT COUNT(*)   \n"
+                    + "FROM         Student INNER JOIN\n"
+                    + "                      Class ON Student.classID = Class.classID\n"
+                    + "					  where Class.classID = ?";
+
+           
+//            
+//            
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, classid);
+//          
+//          
+            
+
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+
 }

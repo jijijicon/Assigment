@@ -31,7 +31,7 @@
             int totalpage = (Integer) request.getAttribute("totalpage");
         %>
         <script src="view/home/home.js" type="text/javascript"></script>
-        
+
     </head>
     <body>
         <div class="container">
@@ -115,12 +115,30 @@
                 </div>
             </div>
 
-            
 
-            <% for (Article a : arts) {%>
-            <p><%= a.getTitle() %></p>
-            <%   }
-            %>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">tiêu đề</th>
+                        <th scope="col"></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <% for (Article a : arts) {%>
+                    <tr>
+                        <td> <a href="article/detail?aid=<%= a.getId() %>"><%= a.getTitle()%></a></td>
+                        <td class="date-art"> <i><%= a.getDate()%></i></td>
+
+                    </tr>
+                    <%   }
+                    %>
+
+
+                </tbody>
+            </table>
+
             <div id="pagger">
 
             </div>

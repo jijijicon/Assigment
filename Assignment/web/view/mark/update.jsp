@@ -68,12 +68,12 @@
                         <input type="hidden" name="stid" value="<%= st.getStudentID()%>">
                         <input type="hidden" name="sjid" value="<%= marks.get(i).getSubjectid().getSubjectID() %>">
                         <th scope="row"><%= marks.get(i).getSubjectid().getSubjectName()%></td>
-                        <td><input type="text" name="sm1" value="<% if (marks.get(i).getSmalltest1() == -1) {%><%} else {%><%= marks.get(i).getSmalltest1()%><%}%>"> </td>
-                        <td><input type="text" name="bi1" value="<% if (marks.get(i).getBigtest1() == -1) {%><%} else {%><%= marks.get(i).getBigtest1()%><%}%>"> </td>
-                        <td><input type="text" name="fi1" value="<% if (marks.get(i).getFinalltest1() == -1) {%><%} else {%><%= marks.get(i).getFinalltest1()%><%}%>"> </td>
-                        <td><input type="text" name="sm2" value="<% if (marks.get(i).getSmalltest2() == -1) {%><%} else {%><%= marks.get(i).getSmalltest2()%><%}%>"> </td>
-                        <td><input type="text" name="bi2" value="<% if (marks.get(i).getBigtest2() == -1) {%><%} else {%><%= marks.get(i).getBigtest2()%><%}%>"> </td>
-                        <td><input type="text" name="fi2" value="<% if (marks.get(i).getFinalltest2() == -1) {%><%} else {%><%= marks.get(i).getFinalltest2()%><%}%>"> </td>
+                        <td><input type="number"  min="0" max="10" name="sm1" value="<% if (marks.get(i).getSmalltest1() == -1) {%><%} else {%><%= marks.get(i).getSmalltest1()%><%}%>"> </td>
+                        <td><input type="number"  min="0" max="10" name="bi1" value="<% if (marks.get(i).getBigtest1() == -1) {%><%} else {%><%= marks.get(i).getBigtest1()%><%}%>"> </td>
+                        <td><input type="number"  min="0" max="10" name="fi1" value="<% if (marks.get(i).getFinalltest1() == -1) {%><%} else {%><%= marks.get(i).getFinalltest1()%><%}%>"> </td>
+                        <td><input type="number"  min="0" max="10" name="sm2" value="<% if (marks.get(i).getSmalltest2() == -1) {%><%} else {%><%= marks.get(i).getSmalltest2()%><%}%>"> </td>
+                        <td><input type="number"  min="0" max="10" name="bi2" value="<% if (marks.get(i).getBigtest2() == -1) {%><%} else {%><%= marks.get(i).getBigtest2()%><%}%>"> </td>
+                        <td><input type="number"  min="0" max="10" name="fi2" value="<% if (marks.get(i).getFinalltest2() == -1) {%><%} else {%><%= marks.get(i).getFinalltest2()%><%}%>"> </td>
                         <td colspan="7"> <button class="btn btn-primary" type="submit" value="add" name="add">save</button><button type="reset" class="btn btn-primary">cancel</button> </td>
 
 
@@ -85,6 +85,7 @@
                     </tbody>
                 </table>
             </div>
+                    <a href="../mark/detail?studentid="<%= st.getStudentID() %>>quay về</a>
         </div>
 
 

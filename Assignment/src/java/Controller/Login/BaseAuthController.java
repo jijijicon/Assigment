@@ -23,7 +23,7 @@ public abstract class BaseAuthController extends HttpServlet {
 
     private boolean isAuthenticated(HttpServletRequest request) {
         String admin = (String) request.getSession().getAttribute("admin");
-        
+
         if (admin == null) {
             return false;
         } else if (admin.equals("0")) {
@@ -35,9 +35,10 @@ public abstract class BaseAuthController extends HttpServlet {
         } else {
             return true;
         }
-        
 
     }
+    
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -94,4 +95,5 @@ public abstract class BaseAuthController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+   
 }

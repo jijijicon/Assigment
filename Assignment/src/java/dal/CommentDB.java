@@ -71,16 +71,16 @@ public class CommentDB extends DBContext {
                     + "  FROM [Comment] where [studentID] = ?  order by cid desc";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, sid);
-            
+
             ResultSet rs = stm.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Comment cmt = new Comment();
-                
+
                 cmt.setCid(rs.getInt(1));
-                
+
                 Student s = new Student();
                 s.setStudentID(rs.getString(2));
-                
+
                 cmt.setStudentid(s);
                 cmt.setContent(rs.getNString(3));
                 cmt.setTeacher(rs.getBoolean(4));
@@ -91,5 +91,49 @@ public class CommentDB extends DBContext {
             Logger.getLogger(CommentDB.class.getName()).log(Level.SEVERE, null, ex);
         }
         return cmts;
+    }
+
+    public void delete(int cid) {
+        try {
+            String sql = "delete from Comment where cid = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, cid);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CommentDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+     public Comment getCommentById(int cid) {
+        
+        try {
+            String sql = "SELECT [cid]\n"
+                    + "      ,[studentID]\n"
+                    + "      ,[comment]\n"
+                    + "      ,[teacher]\n"
+                    + "      ,[date]\n"
+                    + "  FROM [Comment] where cid = ? ";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, cid);
+
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                Comment cmt = new Comment();
+
+                cmt.setCid(rs.getInt(1));
+
+                Student s = new Student();
+                s.setStudentID(rs.getString(2));
+
+                cmt.setStudentid(s);
+                cmt.setContent(rs.getNString(3));
+                cmt.setTeacher(rs.getBoolean(4));
+                cmt.setDate(rs.getDate(5));
+                
+                return cmt;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CommentDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 }

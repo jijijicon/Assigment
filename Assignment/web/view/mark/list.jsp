@@ -4,6 +4,8 @@
     Author     : ASUS
 --%>
 
+<%@page import="model.account.TeacherAccount"%>
+<%@page import="model.account.ParentAccount"%>
 <%@page import="model.entity.Mark"%>
 <%@page import="model.entity.Student"%>
 <%@page import="model.entity.Subject"%>
@@ -22,14 +24,16 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
         <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-        <script src="../js/pagger.js" type="text/javascript" ></script>
+        <script src="../view/mark/listmark.js" type="text/javascript" ></script>
         <link href="../view/mark/list.css" rel="stylesheet" type="text/css"/>
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
         <%
             ArrayList<Student> students = (ArrayList<Student>) request.getAttribute("students");
             ArrayList<Subject> subjects = (ArrayList<Subject>) request.getAttribute("subjects");
             String classid= (String) request.getAttribute("classid");
             String admin = (String) request.getSession().getAttribute("admin");
+            
         %>    
 
 
@@ -37,6 +41,20 @@
 
     </head>
     <body>
+        <script>
+            var ch1=0;
+            var xs1 =0;
+            var ht1 = 0;
+            var h1 = 0;
+            var k1 = 0;
+            
+            
+            var ch2=0;
+            var xs2 =0;
+            var ht2 = 0;
+            var h2 = 0;
+            var k2 = 0;
+        </script>
         <div class="container">
             <nav id="nav" class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
@@ -48,7 +66,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item item">
-                                <a class="nav-link active" aria-current="page" href="#">tin chính</a>
+                                <a class="nav-link active" aria-current="page" href="../home">tin chính</a>
                             </li>
 
                             <li class="nav-item item">
@@ -73,25 +91,29 @@
                                 </ul>
                             </li>
 
+
                             <% if (admin.equals("1")) {%>
                             <li class="nav-item item">
                                 <a class="nav-link active" aria-current="page" href="../teacher/list">ds giáo viên</a>
                             </li>
                             <form id="search" class="d-flex nav-item item" action="../student/infor" >
-                                <input class="form-control me-2" type="text" name="studentid"" placeholder="tra cứ thông tin học sinh" aria-label="Search">
+                                <input class="form-control me-2" type="text" name="studentid" placeholder="tra cứ thông tin học sinh" aria-label="Search">
                                 <button class="btn btn-primary" type="submit" value="add" name="add">search</button>
 
                             </form>
-                            
+
                             <%}%>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class='bx bxs-user'> </i><%= admin.equals("1") ? "  giáo viên" : "  phụ huynh"%></a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="../mark/list?classid=1A">đổi mật khẩu</a></li>
+                                    <li><a class="dropdown-item" href="../login/changepass">đổi mật khẩu</a></li>
 
-                                    <li><a class="dropdown-item" href="../mark/list?classid=2A">thông tin</a></li>
-                                    <li><a class="dropdown-item" href="../mark/list?classid=1B">đăng xuất</a></li>
+                                    <li> <% if (admin.equals("0")) {
+                                        ParentAccount pacc = (ParentAccount) request.getSession().getAttribute("account");%> <a class="dropdown-item" href="../student/infor?studentid=<%= pacc.getStudentID().getStudentID() %>">thông tin</a> <%} 
+                                        else if (admin.equals("1")) {
+                                    TeacherAccount tacc = (TeacherAccount) request.getSession().getAttribute("account");%><a class="dropdown-item" href="../teacher/infor?id=<%= tacc.getTeacherid().getTeacherID() %>">thông tin</a><%}%></li>
+                                    <li><a class="dropdown-item" href="../logout">đăng xuất</a></li>
 
                                 </ul>
                             </li>
@@ -164,38 +186,43 @@
                                 <script>
                                     var arr = [];
                                     <%for (int j = 0; j < st.getMarks().size(); j++) {%>
-                                    arr.push(<%= st.getMarks().get(j).getBigtest2()%>);
+                                    arr.push(<%= st.getMarks().get(j).getFinalltest1()%>);
                                     <%}%>
                                     function xet(m) {
-                                        var hk2 = '';
+                                        var hk1 = '';
                                         for ( let i = 0; i < m.length ; i++) {
                                             if (m[i] === -1) {
-                                                hk2 += '1';
+                                                hk1 += '1';
                                             }
                                             if (m[i] < 5) {
-                                                hk2 += '2';
+                                                hk1 += '2';
                                             }
-                                            if (m[i] >= 5 || m[i] < 7) {
-                                                hk2 += '3';
+                                            if (m[i] >= 5 && m[i] < 7) {
+                                                hk1 += '3';
                                             }
-                                            if (m[i] >= 7 || m[i] < 9) {
-                                                hk2 += '4';
+                                            if (m[i] >= 7 && m[i] < 9) {
+                                                hk1 += '4';
                                             }
-                                            if (m[i] >= 9 || m[i] <= 10) {
-                                                hk2 += '5';
+                                            if (m[i] >= 9 && m[i] <= 10) {
+                                                hk1 += '5';
                                             }
 
                                         }
-                                        if (hk2.includes('1')) {
+                                        if (hk1.includes('1')) {
+                                            k1++;
                                             return '';
-                                        } else if ( hk2.includes('2')) {
+                                        } else if ( hk1.includes('2')) {
+                                            ch1++;
                                             return 'chưa hoàn thành';
-                                        } else if (hk2.includes('1')) {
+                                        } else if (hk1.includes('3')) {
+                                             h1++ ;
                                             return 'hoàn thành';
-                                        } else if (hk2.includes('4')) {
+                                        } else if (hk1.includes('4')) {
+                                             ht1++ ; 
                                             return 'hoàn thành tốt';
-                                        } else if (hk2.includes('5')) {
-                                            return 'hoan thành suất sắc';
+                                        } else if (hk1.includes('5')) {
+                                             xs1++ ;
+                                            return 'hoàn thành thành xuất sắc';
                                         }
                                         return '';
                                     }
@@ -209,7 +236,7 @@
                                 <script>
                                     var arr = [];
                                     <%for (int j = 0; j < st.getMarks().size(); j++) {%>
-                                    arr.push(<%= st.getMarks().get(j).getBigtest2()%>);
+                                    arr.push(<%= st.getMarks().get(j).getFinalltest2()%>);
                                     <%}%>
                                     function xet(m) {
                                         var hk2 = '';
@@ -220,27 +247,32 @@
                                             if (m[i] < 5) {
                                                 hk2 += '2';
                                             }
-                                            if (m[i] >= 5 || m[i] < 7) {
+                                            if (m[i] >= 5 && m[i] < 7) {
                                                 hk2 += '3';
                                             }
-                                            if (m[i] >= 7 || m[i] < 9) {
+                                            if (m[i] >= 7 && m[i] < 9) {
                                                 hk2 += '4';
                                             }
-                                            if (m[i] >= 9 || m[i] <= 10) {
+                                            if (m[i] >= 9 && m[i] <= 10) {
                                                 hk2 += '5';
                                             }
 
                                         }
                                         if (hk2.includes('1')) {
+                                            k2++;
                                             return '';
                                         } else if ( hk2.includes('2')) {
                                             return 'chưa hoàn thành';
-                                        } else if (hk2.includes('1')) {
+                                            ch2++;
+                                        } else if (hk2.includes('3')) {
+                                            h2++;
                                             return 'hoàn thành';
                                         } else if (hk2.includes('4')) {
+                                            ht2++;
                                             return 'hoàn thành tốt';
                                         } else if (hk2.includes('5')) {
-                                            return 'hoan thành suất sắc';
+                                            xs2++;
+                                            return 'hoàn thành suất sắc';
                                         }
                                         return '';
                                     }
@@ -252,18 +284,28 @@
                         <%}%>
                     </tbody>
                 </table>
-
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <canvas id="myChart1" style="width:100%;max-width:600px"></canvas>
+                        </div>
+                        <div class="col-sm-6">
+                            <canvas id="myChart2" style="width:100%;max-width:600px"></canvas>
+                        </div>
+                    </div>
                 <div class="foo">
                     <p>trường tiểu học ABC</p>
                 </div>
             </div>
 
-
+                    
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         <script>
-
+            
+        
+            xeploai("myChart1",k1, ch1, h1,ht1,xs1,'học kì 1');
+            xeploai("myChart2",k2, ch2, h2,ht2,xs2,'học kì 2');
         </script>
     </body>
 </html>

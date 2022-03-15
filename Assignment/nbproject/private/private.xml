@@ -3,9 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/article/detail.jsp</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/student/search.jsp</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/src/java/Controller/Login/LogoutControll.java</file>
+            <file>file:/D:/2022%20spring/Assignment/Assignment/src/java/Controller/Mark/DeleteCommentControll.java</file>
+            <file>file:/D:/2022%20spring/Assignment/Assignment/src/java/Controller/Login/changepass.java</file>
+            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/mark/listmark.js</file>
+            <file>file:/D:/2022%20spring/Assignment/Assignment/src/java/Controller/Mark/UpdateMarkControll.java</file>
+            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/mark/list.jsp</file>
+            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/mark/update.jsp</file>
+            <file>file:/D:/2022%20spring/Assignment/Assignment/src/java/Controller/Mark/DetailMarkControll.java</file>
         </group>
     </open-files>
 </project-private>

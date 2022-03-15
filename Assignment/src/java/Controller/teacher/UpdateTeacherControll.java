@@ -5,6 +5,7 @@
  */
 package Controller.teacher;
 
+import Controller.Login.BaseAuthController;
 import dal.AccountDB;
 import dal.TeacherDB;
 import java.io.IOException;
@@ -13,13 +14,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.account.TeacherAccount;
 import model.entity.Teacher;
 
 /**
  *
  * @author ASUS
  */
-public class UpdateTeacherControll extends HttpServlet {
+public class UpdateTeacherControll extends BaseAuthController {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -57,9 +59,19 @@ public class UpdateTeacherControll extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        TeacherAccount tacc =(TeacherAccount) request.getSession().getAttribute("account");
         String id = request.getParameter("id");
+        
+        if(!tacc.getTeacherid().isAdmin()){
+            response.sendRedirect("../teacher/infor?id="+id);
+
+        }
+        
+                
+                
+        
         TeacherDB db = new TeacherDB();
         Teacher t = db.getTeacherById(id);
         request.setAttribute("t", t);
@@ -75,7 +87,7 @@ public class UpdateTeacherControll extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         Teacher t = new Teacher();

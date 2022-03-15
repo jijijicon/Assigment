@@ -54,7 +54,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item item">
-                                <a class="nav-link active" aria-current="page" href="#">tin chính</a>
+                                <a class="nav-link active" aria-current="page" href="../home">tin chính</a>
                             </li>
 
                             <li class="nav-item item">
@@ -79,6 +79,7 @@
                                 </ul>
                             </li>
 
+
                             <% if (admin.equals("1")) {%>
                             <li class="nav-item item">
                                 <a class="nav-link active" aria-current="page" href="../teacher/list">ds giáo viên</a>
@@ -88,16 +89,19 @@
                                 <button class="btn btn-primary" type="submit" value="add" name="add">search</button>
 
                             </form>
-                            
+
                             <%}%>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class='bx bxs-user'> </i><%= admin.equals("1") ? "  giáo viên" : "  phụ huynh"%></a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="../mark/list?classid=1A">đổi mật khẩu</a></li>
+                                    <li><a class="dropdown-item" href="../login/changepass">đổi mật khẩu</a></li>
 
-                                    <li><a class="dropdown-item" href="../mark/list?classid=2A">thông tin</a></li>
-                                    <li><a class="dropdown-item" href="../mark/list?classid=1B">đăng xuất</a></li>
+                                    <li> <% if (admin.equals("0")) {
+                                        ParentAccount pacc = (ParentAccount) request.getSession().getAttribute("account");%> <a class="dropdown-item" href="../student/infor?studentid=<%= pacc.getStudentID().getStudentID() %>">thông tin</a> <%} 
+                                        else if (admin.equals("1")) {
+                                        TeacherAccount tacc = (TeacherAccount) request.getSession().getAttribute("account");%><a class="dropdown-item" href="../teacher/infor?id=<%= tacc.getTeacherid().getTeacherID() %>">thông tin</a><%}%></li>
+                                    <li><a class="dropdown-item" href="../logout">đăng xuất</a></li>
 
                                 </ul>
                             </li>
@@ -135,7 +139,7 @@
             <div class="content">
                 <h2><%= st.getLastname()%> <%=st.getFirstname()%></h2>
                 <h6>lớp <%= st.getClassID().getClassID()%></h6>
-                <div class="hk1">
+                <div class="hk1"> 
                     <h5>Học kì 1</h5>
                     <table class="table table-bordered">
                         <thead>
@@ -218,6 +222,7 @@
                         </tbody>
                     </table>
                     <hr>
+                    <% if(admin.equals("1")) {%><a class="btn btn-primary" href="update?stid=<%= st.getStudentID()%>"><i class='bx bx-edit-alt'>chỉnh sửa</i></a><%}%>
 
                     <div class="alert alert-primary" role="alert">
                         Tổng kêt: xếp loại <%= hk2%>
@@ -230,7 +235,7 @@
                             <input type="hidden" name="per" value="<%= admin%>">
                             <input type="text" name="content" placeholder="nhận xét"><br>
 
-                            <button type="submit">add </button>
+                            <button class="btn btn-primary" type="submit">add </button>
 
                         </form>
                     </div>
@@ -239,10 +244,22 @@
 
                 <% for (Comment cmt : cmts) {%>
                 <div  <%= cmt.isTeacher() ? "class=\"teacher-cmt\"" : "class=\"parent-cmt\""%>  >
-                   
+
+
                     <%= cmt.isTeacher() ? "<h5>nhà trường</h5>" : "<h5>phụ huynh</h5>"%>
-                     <i class="date"><%= cmt.getDate()%> </i>
-                     <p class="cmt"><%= cmt.getContent()%></p>
+                    <i class="date"><%= cmt.getDate()%> </i>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <p class="cmt"><%= cmt.getContent()%></p>
+                        </div>
+                            <%if ((admin.equals("0")&&!cmt.isTeacher()) || (admin.equals("1")&&cmt.isTeacher())  ) {%>
+                                <div class="col-sm-2">
+                            <a href="deletecmt?cid=<%= cmt.getCid()%>" ><i class='bx bx-trash'></i></a>
+                        </div>
+                                <%}
+                            %>
+                    </div>
+
                 </div>
                 <%}
                 %>

@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.account.ParentAccount;
 import model.entity.Student;
 
 /**
@@ -30,8 +31,6 @@ public class StudentDetailControll extends BaseAuthController {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -44,17 +43,29 @@ public class StudentDetailControll extends BaseAuthController {
     @Override
     protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String sttudentid = request.getParameter("studentid");
+
+        request.setCharacterEncoding("UTF-8");
+        String admin = (String) request.getSession().getAttribute("admin");
         StudentDB stdb = new StudentDB();
-        Student st = stdb.getStudent(sttudentid);
-        request.setAttribute("st", st);
-        request.getRequestDispatcher("../view/student/infor.jsp").forward(request, response);
+        if (admin.equals("0")) {
+            ParentAccount acc = (ParentAccount) request.getSession().getAttribute("account");
+            String studentid = acc.getStudentID().getStudentID();
+            Student st = stdb.getStudent(studentid);
+            request.setAttribute("st", st);
+            request.getRequestDispatcher("../view/student/infor.jsp").forward(request, response);
+
+        } else {
+            String studentid = request.getParameter("studentid");
+            Student st = stdb.getStudent(studentid);
+            request.setAttribute("st", st);
+            request.getRequestDispatcher("../view/student/infor.jsp").forward(request, response);
+        }
+
     }
 
-    
     protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     /**

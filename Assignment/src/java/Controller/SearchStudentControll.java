@@ -43,7 +43,7 @@ public class SearchStudentControll extends BaseAuthController {
         request.setAttribute("grades", grades);
 
        
-        int pagesize = 5;
+        int pagesize = 10;
         
 
         
@@ -65,7 +65,12 @@ public class SearchStudentControll extends BaseAuthController {
         if(cl != gradeID && gradeID!=-1){
             classID = "0";
         }
-
+//        if(!classID.equals("0")){
+//
+//         ClassStudent cdt = cdb.getClass(classID);
+//         request.setAttribute("cdt", cdt);
+//         
+//        }
 
 
         String page = request.getParameter("page");
@@ -75,6 +80,10 @@ public class SearchStudentControll extends BaseAuthController {
         int pageindex = Integer.parseInt(page);
         
         StudentDB sdb = new StudentDB();
+        
+        
+        
+        
         ArrayList<Student> students = sdb.getListStudentByClassandGrade(gradeID,classID ,pageindex,pagesize);
         request.setAttribute("classID", classID);
         request.setAttribute("students", students);

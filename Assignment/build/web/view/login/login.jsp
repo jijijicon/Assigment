@@ -9,26 +9,48 @@
 <!DOCTYPE html>
 <html lang="vi">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="view/login/login.css">
-    <title>Document</title>
-</head>
-
-<body>
-    <div class="container">
-        <div class="Login parent">
-            <h1>tài khoản phụ huynh</h1>
-            <form action="login" method="POST">
-                <input type="text" placeholder="username" name="username"><br>
-                <input type="password" placeholder="password" name="password"><br>
-                <input id="par" type="submit" value="đăng nhập">
-            </form>
-        </div>
+    <head>
         
-    </div>
-</body>
+          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <link rel="stylesheet"
+              href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
+        <title>Document</title>
+    </head>
+
+    <body>
+       
+        <div class="container" style="margin-top: 10px;">
+            <div class="row"
+                 style="border: 1px darkgrey solid; border-radius: 10px; width: 50%; margin: 0 auto; padding: 20px;">
+                <div class="col-sm-12">
+
+                    <h2 class="myclass">đăng nhập</h2>
+                    <form action="login" method="post" >
+                        <div class="form-group">
+                           
+
+                        </div>
+                        <div class="form-group">
+                            <label> tài khoản </label> 
+                            <input type="text" placeholder="username" name="username"><br>
+                        </div>
+                        <div class="form-group">
+                            <label> mật khẩu </label> 
+                             <input type="password" placeholder="password" name="password"><br>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">đăng nhập</button>
+                        
+                    </form>
+                </div>
+            </div>
+    </body>
 
 </html>

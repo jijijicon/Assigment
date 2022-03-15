@@ -76,6 +76,22 @@
         <servlet-name>LogoutControll</servlet-name>
         <servlet-class>Controller.Login.LogoutControll</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteCommentControll</servlet-name>
+        <servlet-class>Controller.Mark.DeleteCommentControll</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>changepass</servlet-name>
+        <servlet-class>Controller.Login.changepass</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DetailClassControll</servlet-name>
+        <servlet-class>Controller.Class.DetailClassControll</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateClass</servlet-name>
+        <servlet-class>Controller.Class.UpdateClass</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InsertStudentControll</servlet-name>
         <url-pattern>/student/insert</url-pattern>
@@ -151,6 +167,22 @@
     <servlet-mapping>
         <servlet-name>LogoutControll</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCommentControll</servlet-name>
+        <url-pattern>/mark/deletecmt</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>changepass</servlet-name>
+        <url-pattern>/login/changepass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DetailClassControll</servlet-name>
+        <url-pattern>/class/detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateClass</servlet-name>
+        <url-pattern>/class/update</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

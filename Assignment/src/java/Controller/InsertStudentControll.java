@@ -36,27 +36,9 @@ import model.entity.Subject;
  */
 public class InsertStudentControll extends BaseAuthController {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void processGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         ClassDB cdb = new ClassDB();
         ArrayList<ClassStudent> classes = cdb.getListClass(-1);
@@ -64,8 +46,19 @@ public class InsertStudentControll extends BaseAuthController {
         request.setAttribute("classes", classes);
 
         request.getRequestDispatcher("../view/student/insert.jsp").forward(request, response);
+        
     }
-
+    @Override
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+    
+    
+    
+    
+    
+    
     @Override
     protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -73,20 +66,57 @@ public class InsertStudentControll extends BaseAuthController {
         Student st = new Student();
 
         boolean gender = request.getParameter("gender").equals("boy");
-        st.setStudentID(request.getParameter("studentid"));
-        st.setFirstname(request.getParameter("firstname"));
-        st.setLastname(request.getParameter("lastname"));
-        st.setGender(gender);
+        
+        String raw_id = (request.getParameter("studentid"));
+        String classid = request.getParameter("classid");
+        
+        
+        StudentDB stdb = new StudentDB();
+        int count = stdb.countStudentInClass(classid);
+        
+        
+        
+        Student s = stdb.getStudent(raw_id);
+        
+        if( s!=null ){
+            request.setAttribute("message", "id này đã tồn tại");
+            processRequest(request, response);  
+        }
+        
+        
+        
+        String raw_firstname = request.getParameter("firstname");
+        if( raw_firstname == null || raw_firstname.trim().length() == 0 ){
+            request.setAttribute("message", "chưa nhập tên");
+            processRequest(request, response); 
+        }
+        
+        
+        String raw_lastname=(request.getParameter("lastname"));
+        if( raw_firstname == null || raw_firstname.trim().length() == 0 ){
+            request.setAttribute("message", "chưa nhập họ");
+            processRequest(request, response); 
+        }
+        st.setStudentID(raw_id);
+        st.setFirstname(raw_firstname);
+        st.setLastname(raw_lastname);
+      
+        
         st.setDob(Date.valueOf(request.getParameter("dob")));
         st.setAdress(request.getParameter("adress"));
-
+        
+        st.setGender(gender);
         ClassStudent cl = new ClassStudent();
-        cl.setClassID(request.getParameter("classid"));
+        if(count>20){
+           request.setAttribute("message", "số lượng học sinh lớp này đã đạt tối đa") ;
+           processRequest(request, response);
+        }
+        cl.setClassID(classid);
 
         st.setClassID(cl);
 
         st.setPhoto(request.getParameter("photo"));
-        StudentDB stdb = new StudentDB();
+        
 
         subjectDB sjdb = new subjectDB();
         ArrayList<Subject> subjects = sjdb.listSubjectInClass(st.getClassID().getClassID());
@@ -130,5 +160,16 @@ public class InsertStudentControll extends BaseAuthController {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+    
+    
+     public boolean getString(String input, String Regex) {
+        
+        
+        
+            if (input.matches(Regex)) {
+                return true;
+             }
+            else return false;
+        
+    }
 }

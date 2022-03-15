@@ -61,7 +61,7 @@ public class LogoutControll extends HttpServlet {
         HttpSession session = request.getSession();
         session.removeAttribute("account");
         session.removeAttribute("admin");
-        request.getRequestDispatcher("home").forward(request, response);
+        response.sendRedirect("home");
     }
 
     /**

@@ -152,17 +152,35 @@ public class TeacherDB extends DBContext {
                     + "      [firstname] = ?\n"
                     + "      ,[lastname] = ?\n"
                     + "      ,[gender] = ?\n"
-
                     + " WHERE  [teacherID]= ? ";
-            
+
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setNString(1, t.getFirstname());
             stm.setNString(2, t.getLastname());
-            stm.setBoolean(3, t.isGender() );
-            stm.setString(4, t.getTeacherID() );
+            stm.setBoolean(3, t.isGender());
+            stm.setString(4, t.getTeacherID());
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(TeacherDB.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public int teacherPer(String t) {
+        try {
+            String sql = "SELECT    Count(*)\n"
+                    + "FROM         Class INNER JOIN\n"
+                    + "                      Teacher ON Class.teacherID = Teacher.teacherID\n"
+                    + "					  where  Teacher.teacherID = ? ";
+
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setNString(1, t);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()){
+                return rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TeacherDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
     }
 }

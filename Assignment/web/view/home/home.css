@@ -20,21 +20,21 @@ nav .nav-item {
     padding-left: 15px;
 }
 
-nav a:link {
+a:link {
     color: white !important;
     background-color: transparent;
     text-decoration: none;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-nav a:visited {
+a:visited {
     color: white !important;
     background-color: transparent;
     text-decoration: none;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-nav a:hover {
+a:hover {
     color: white !important;
     background-color: #2d2d2d1f;
     font-family: Arial, Helvetica, sans-serif;
@@ -124,4 +124,10 @@ table{
 
 .slide{
     margin-bottom: 20px;
+}
+
+
+
+.date-art{
+    text-align: right!important;
 }

@@ -11,16 +11,10 @@ package model.entity;
  */
 public class ClassStudent {
     private String classID;
-    private String teacherID;
+    private Teacher teacherID;
     private Grade gradeID;
 
     public ClassStudent() {
-    }
-
-    public ClassStudent(String classID, String teacherID, Grade gradeID) {
-        this.classID = classID;
-        this.teacherID = teacherID;
-        this.gradeID = gradeID;
     }
 
     public String getClassID() {
@@ -31,11 +25,11 @@ public class ClassStudent {
         this.classID = classID;
     }
 
-    public String getTeacherID() {
+    public Teacher getTeacherID() {
         return teacherID;
     }
 
-    public void setTeacherID(String teacherID) {
+    public void setTeacherID(Teacher teacherID) {
         this.teacherID = teacherID;
     }
 

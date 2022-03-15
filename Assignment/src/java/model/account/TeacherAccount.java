@@ -45,6 +45,14 @@ public class TeacherAccount {
         this.email = email;
     }
 
+    public Teacher getTeacherid() {
+        return teacherid;
+    }
+
+    public void setTeacherid(Teacher teacherid) {
+        this.teacherid = teacherid;
+    }
+
   
 
     

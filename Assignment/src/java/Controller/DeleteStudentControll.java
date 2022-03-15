@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.entity.ClassStudent;
 import model.entity.Student;
 
 /**
@@ -46,10 +47,17 @@ public class DeleteStudentControll extends BaseAuthController {
             throws ServletException, IOException {
          String id = request.getParameter("id");
         StudentDB db = new StudentDB();
-        Student s = new Student();
-        s.setStudentID(id);
+        
+        
+        Student s = db.getStudent(id);
+       
+        
+       
+        
         db.deleteStudent(s);
-        response.sendRedirect("../student/search");
+        
+        
+        response.sendRedirect("../class/detail?clid="+s.getClassID().getClassID());
     }
 
     /**

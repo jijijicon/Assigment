@@ -43,12 +43,12 @@
                         <div class="form-group">
                             <label> tên </label> 
                             <input type="text" 
-                                   class="form-control" name="firstname" placeholder="Enter firstname" value="<%= st.getFirstname()%>">
+                                required pattern=".{1,}"   class="form-control" name="firstname" placeholder="Enter firstname" value="<%= st.getFirstname()%>">
                         </div>
                         <div class="form-group">
                             <label> họ </label> 
                             <input type="text" 
-                                   class="form-control" name="lastname" placeholder="Enter lastname" value="<%= st.getLastname() %>">
+                                required pattern=".{1,}"   class="form-control" name="lastname" placeholder="Enter lastname" value="<%= st.getLastname() %>">
                         </div>
                         <div class="form-group">
                             giới tính: 
@@ -81,7 +81,7 @@
                         <div class="form-group">
                             <label> địa chỉ </label> 
                             <input type="text" 
-                                   class="form-control" name="adress" value="<%= st.getAdress() %>" >
+                                required pattern=".{1,}"   class="form-control" name="adress" value="<%= st.getAdress() %>" >
                         </div>
                         <div class="form-group">
                             <label>Photo</label> <br/>

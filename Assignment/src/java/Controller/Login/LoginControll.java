@@ -56,10 +56,13 @@ public class LoginControll extends HttpServlet {
             request.getSession().setAttribute("account", pacc);
           
             request.getSession().setAttribute("admin", admin);
+            response.sendRedirect("home");
         }else if(pacc==null && tacc!=null){
             admin = "1";
             request.getSession().setAttribute("account", tacc);      
-            request.getSession().setAttribute("admin", admin);}
+            request.getSession().setAttribute("admin", admin);
+            response.sendRedirect("home");
+        }
     }
 
     /**

@@ -25,6 +25,10 @@
         <title>JSP Page</title>
         <%
             ArrayList<ClassStudent> classlist = (ArrayList<ClassStudent>) request.getAttribute("classes");
+            String mess = (String) request.getAttribute("message");
+            if(mess==null){
+                mess="";
+            }
         %>
     </head>
     <body>
@@ -35,20 +39,21 @@
 
                     <h2 class="myclass">thêm học sinh</h2>
                     <form action="../student/insert" method="post" >
+                        <i><%= mess %></i>
                         <div class="form-group">
                             <label>ID</label> 
                             <input type="text" 
-                                   class="form-control" name="studentid" placeholder="Enter id">
+                                required pattern="^[A-Z]{2}[0-9]{3}$"   class="form-control" name="studentid" placeholder="Enter id">
                         </div>
                          <div class="form-group">
                             <label> họ và tên đệm </label> 
                             <input type="text" 
-                                   class="form-control" name="lastname" placeholder="Enter lastname">
+                                 required pattern=".{1,}"  class="form-control" name="lastname" placeholder="Enter lastname">
                         </div>
                         <div class="form-group">
                             <label> tên </label> 
                             <input type="text" 
-                                   class="form-control" name="firstname" placeholder="Enter firstname">
+                                required pattern=".{1,}"  class="form-control" name="firstname" placeholder="Enter firstname">
                         </div>
                        
                         <div class="form-group">
@@ -59,7 +64,7 @@
                         <div class="form-group">
                             <label> ngày sinh </label> 
                             <input type="date" 
-                                   class="form-control" name="dob">
+                                   class="form-control" name="dob" value="2010-02-02" min="2000-01-02" max="2022-12-31">
                         </div>
                         <div class="form-group">
                             <label> lớp  </label> 
@@ -74,7 +79,7 @@
                              <div class="form-group">
                             <label>địa chỉ</label> 
                             <input type="text" 
-                                   class="form-control" name="adress">
+                            required pattern=".{1,}" class="form-control" name="adress">
                         </div>
                         <div class="form-group">
                             <label>Photo</label> <br/>

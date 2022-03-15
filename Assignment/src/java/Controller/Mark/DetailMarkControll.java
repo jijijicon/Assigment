@@ -54,7 +54,7 @@ public class DetailMarkControll extends BaseAuthController {
         if (admin.equals("0")) {
             ParentAccount acc = (ParentAccount) request.getSession().getAttribute("account");
             if (!acc.getStudentID().getStudentID().equals(studentid)) {
-                response.sendRedirect("detail?studentid="+studentid);
+                response.sendRedirect("../mark/detail?studentid="+acc.getStudentID().getStudentID());
             } else {
                 StudentDB stdb = new StudentDB();
                 Student st = stdb.getStudent(studentid);

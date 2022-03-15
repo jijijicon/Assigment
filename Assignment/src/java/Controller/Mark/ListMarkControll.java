@@ -6,6 +6,7 @@
 package Controller.Mark;
 
 import Controller.Login.BaseAuthController;
+import dal.ClassDB;
 import dal.MarkDB;
 import dal.StudentDB;
 import dal.subjectDB;
@@ -16,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.entity.ClassStudent;
 import model.entity.Mark;
 import model.entity.Student;
 import model.entity.Subject;
@@ -75,7 +77,9 @@ public class ListMarkControll extends BaseAuthController {
              
         }
         
-  
+        ClassDB cdb = new ClassDB();
+        ClassStudent cl = cdb.getClass(classid);
+        request.setAttribute("cl", cl);
         request.setAttribute("classid", classid);
         request.setAttribute("students", students);
         request.getRequestDispatcher("../view/mark/list.jsp").forward(request, response);

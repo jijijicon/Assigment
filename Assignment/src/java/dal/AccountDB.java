@@ -121,7 +121,7 @@ public class AccountDB extends DBContext {
 
     public TeacherAccount getTA(String username, String password) {
         try {
-            String sql = "SELECT    TeacherAccount.username, TeacherAccount.password\n"
+            String sql = "SELECT    TeacherAccount.username, TeacherAccount.password, Teacher.teacherID, Teacher.firstname\n"
                     + "                    FROM         TeacherAccount INNER JOIN\n"
                     + "                                        Teacher ON TeacherAccount.teacherID = Teacher.teacherID"
                     + "					  where TeacherAccount.username = ? and [password] = ?  ";
@@ -134,6 +134,12 @@ public class AccountDB extends DBContext {
                 TeacherAccount ta = new TeacherAccount();
                 ta.setUssername(rs.getString(1));
                 ta.setPassword(rs.getString(2));
+                
+                Teacher t = new Teacher();
+                t.setTeacherID(rs.getString(3));
+                t.setFirstname(rs.getNString(4));
+                
+                ta.setTeacherid(t);
                 
                 return ta;
 
@@ -159,7 +165,6 @@ public class AccountDB extends DBContext {
             stm.setString(1, t.getTeacherID());
             stm.setNString(2, password);
             stm.setString(3, t.getTeacherID());
-            
 
             stm.executeUpdate();
 //            String sql_get_id ="select studentid as sid";
@@ -188,4 +193,81 @@ public class AccountDB extends DBContext {
         }
     }
 
+    public void ChangepassTeacher(String username, String password) {
+        String sql = "UPDATE [TeacherAccount]\n"
+                + "  \n"
+                + "      SET [password] = ?\n"
+                + "      \n"
+                + " WHERE [username] = ?";
+        PreparedStatement stm = null;
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, password);
+            stm.setString(2, username);
+
+            stm.executeUpdate();
+//            String sql_get_id ="select studentid as sid";
+//            ResultSet rs = stm.executeQuery();
+//            
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDB.class.getName()).log(Level.SEVERE, null, ex);
+
+        } finally {
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(AccountDB.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(AccountDB.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
+
+    public void ChangepassParent(String username, String password) {
+        String sql = "UPDATE [ParentAccount]\n"
+                + "   SET \n"
+                + "      [password] = ?\n"
+                + "      \n"
+                + " WHERE [username] = ?";
+        PreparedStatement stm = null;
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, password);
+            stm.setString(2, username);
+
+            stm.executeUpdate();
+//            String sql_get_id ="select studentid as sid";
+//            ResultSet rs = stm.executeQuery();
+//            
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDB.class.getName()).log(Level.SEVERE, null, ex);
+
+        } finally {
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(AccountDB.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(AccountDB.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
 }

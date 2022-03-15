@@ -24,6 +24,9 @@ public class UpdateArticleControll extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
+        
+        
+        
         int id = Integer.parseInt(request.getParameter("aid"));
         ArticleDB db = new ArticleDB();
         Article art = db.getArticleById(id);
