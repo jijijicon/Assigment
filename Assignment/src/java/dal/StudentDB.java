@@ -23,7 +23,7 @@ import model.entity.Teacher;
  */
 public class StudentDB extends DBContext {
 
-    public ArrayList<Student> getListStudentByClassandGrade(int gradeid, String classid, int pageindex, int pagesize) {
+    public ArrayList<Student> getListStudentByClassandGrade(int gradeid, String classid, int pageindex, int pagesize, int action) {
         ArrayList<Student> students = new ArrayList<>();
         try {
             String sql = "SELECT    studentID, firstName, lastName, gender, dob,  photo, classID, tb1.teacherID , tb1.GradeID\n"
@@ -45,7 +45,17 @@ public class StudentDB extends DBContext {
                 sql += " ) as tb1 where  row_index >= (?-1)*? + 1  and  row_index <= ?*? ";
             }
 //            
-//            
+            
+            
+            if(action == 1){
+                sql+= "order by studentID";
+            }
+            else if(action == 3 ){
+                sql += "order by firstName" ;
+            }else if (action == 2) sql += "order by lastName" ;
+            else if (action == 4) sql += "order by gender" ;
+            else if (action == 5) sql += "order by dob" ;
+            else if (action == 6) sql += "order by classID" ;
             PreparedStatement stm = connection.prepareStatement(sql);
 //          
 //          
@@ -418,7 +428,8 @@ public class StudentDB extends DBContext {
                     + "      ,[adress]\n"
                     + "      ,[photo]\n"
                     + "  FROM [dbo].[Student]\n"
-                    + "  where classID = ? ";
+                    + "  where classID = ?  "
+                    + "order by firstName";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, classid);
             ResultSet rs = stm.executeQuery();
@@ -495,14 +506,12 @@ public class StudentDB extends DBContext {
                     + "                      Class ON Student.classID = Class.classID\n"
                     + "					  where Class.classID = ?";
 
-           
 //            
 //            
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, classid);
 //          
 //          
-            
 
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
@@ -514,4 +523,47 @@ public class StudentDB extends DBContext {
         return -1;
     }
 
+    public ArrayList<Student> getStudentsByName(String name) {
+
+        ArrayList<Student> students = new ArrayList<>();
+        try {
+            String sql = "SELECT [studentID]\n"
+                    + "      ,[classID]\n"
+                    + "      ,[firstName]\n"
+                    + "      ,[lastName]\n"
+                    + "      ,[gender]\n"
+                    + "      ,[dob]\n"
+                    + "      ,[adress]\n"
+                    + "      ,[photo]\n"
+                    + "  FROM [dbo].[Student]\n"
+                    + "  where firstName like ? or lastName like ?\n"
+                    + "  order by firstName";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setNString(1, "%"+name+"%");
+            stm.setNString(2, "%"+name+"%");
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Student s = new Student();
+                s.setStudentID(rs.getString("studentID"));
+
+                ClassStudent cl = new ClassStudent();
+                cl.setClassID(rs.getString("classID"));
+
+                s.setClassID(cl);
+
+                s.setFirstname(rs.getNString("firstName"));
+                s.setLastname(rs.getNString("lastName"));
+                s.setGender(rs.getBoolean("gender"));
+                s.setDob(rs.getDate("dob"));
+                s.setAdress(rs.getNString("adress"));
+                s.setPhoto(rs.getString("photo"));
+
+                students.add(s);
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return students;
+    }
 }

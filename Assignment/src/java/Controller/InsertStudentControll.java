@@ -21,6 +21,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import model.account.Feature;
 import model.account.ParentAccount;
 import model.account.ParentFeature;
@@ -67,7 +68,7 @@ public class InsertStudentControll extends BaseAuthController {
 
         boolean gender = request.getParameter("gender").equals("boy");
         
-        String raw_id = (request.getParameter("studentid"));
+        String raw_id = (request.getParameter("studentid")).trim();
         String classid = request.getParameter("classid");
         
         
@@ -85,14 +86,14 @@ public class InsertStudentControll extends BaseAuthController {
         
         
         
-        String raw_firstname = request.getParameter("firstname");
+        String raw_firstname = request.getParameter("firstname").trim();
         if( raw_firstname == null || raw_firstname.trim().length() == 0 ){
             request.setAttribute("message", "chưa nhập tên");
             processRequest(request, response); 
         }
         
         
-        String raw_lastname=(request.getParameter("lastname"));
+        String raw_lastname=(request.getParameter("lastname")).trim();
         if( raw_firstname == null || raw_firstname.trim().length() == 0 ){
             request.setAttribute("message", "chưa nhập họ");
             processRequest(request, response); 
@@ -116,6 +117,14 @@ public class InsertStudentControll extends BaseAuthController {
         st.setClassID(cl);
 
         st.setPhoto(request.getParameter("photo"));
+        
+        
+//        final String path = "D:\\2022 spring\\Assignment\\Assignment\\web\\image";
+//        final Part filePart = request.getPart("photo");
+        
+        
+        
+        
         
 
         subjectDB sjdb = new subjectDB();
@@ -172,4 +181,15 @@ public class InsertStudentControll extends BaseAuthController {
             else return false;
         
     }
+//     private String getFileName(final Part part) {
+//        final String partHeader = part.getHeader("content-disposition");
+//        LOGGER.log(Level.INFO, "Part Header = {0}", partHeader);
+//        for (String content : part.getHeader("content-disposition").split(";")) {
+//            if (content.trim().startsWith("filename")) {
+//                return content.substring(
+//                        content.indexOf('=') + 1).trim().replace("\"", "");
+//            }
+//        }
+//        return null;
+//    }
 }

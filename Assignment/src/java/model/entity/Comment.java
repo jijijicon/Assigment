@@ -17,7 +17,16 @@ public class Comment {
     private String content;
     private boolean teacher;
     private Date date;
+    private String nameuser;
 
+    public String getNameuser() {
+        return nameuser;
+    }
+
+    public void setNameuser(String nameuser) {
+        this.nameuser = nameuser;
+    }
+    
     public Comment() {
     }
 

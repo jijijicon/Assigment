@@ -5,6 +5,7 @@
  */
 package Controller.teacher;
 
+import Controller.Login.BaseAuthController;
 import dal.TeacherDB;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,7 +19,7 @@ import model.entity.Teacher;
  *
  * @author ASUS
  */
-public class DetailTeacherControll extends HttpServlet {
+public class DetailTeacherControll extends BaseAuthController {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,7 +41,7 @@ public class DetailTeacherControll extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String id = request.getParameter("id");
@@ -60,7 +61,7 @@ public class DetailTeacherControll extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
     }

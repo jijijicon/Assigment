@@ -92,6 +92,10 @@
         <servlet-name>UpdateClass</servlet-name>
         <servlet-class>Controller.Class.UpdateClass</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchNameControll</servlet-name>
+        <servlet-class>Controller.SearchNameControll</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>InsertStudentControll</servlet-name>
         <url-pattern>/student/insert</url-pattern>
@@ -183,6 +187,10 @@
     <servlet-mapping>
         <servlet-name>UpdateClass</servlet-name>
         <url-pattern>/class/update</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchNameControll</servlet-name>
+        <url-pattern>/student/searchname</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

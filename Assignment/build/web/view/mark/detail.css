@@ -137,6 +137,9 @@ table{
     text-align: left;
     
 }
+.parent-cmt h5{
+    color: #e28743;
+}
 
 .cmt{
     border-radius: 3px;

@@ -5,6 +5,7 @@
  */
 package Controller.teacher;
 
+import Controller.Login.BaseAuthController;
 import dal.AccountDB;
 import dal.TeacherDB;
 import java.io.IOException;
@@ -19,11 +20,11 @@ import model.entity.Teacher;
  *
  * @author ASUS
  */
-public class InsertTeacherControll extends HttpServlet {
+public class InsertTeacherControll extends BaseAuthController {
 
     
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.getRequestDispatcher("../view/teacher/insert.jsp").forward(request, response);
     }
@@ -37,7 +38,7 @@ public class InsertTeacherControll extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         Teacher t = new Teacher();

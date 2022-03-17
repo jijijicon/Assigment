@@ -25,14 +25,14 @@ public class DeleteTeacherController extends BaseAuthController {
       protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-          TeacherAccount tacc =(TeacherAccount) request.getSession().getAttribute("account");
+        TeacherAccount tacc =(TeacherAccount) request.getSession().getAttribute("account");
         
        String id = request.getParameter("id");
        TeacherDB db = new TeacherDB();
        
        Teacher t = db.getTeacherById(id);
        int per = db.teacherPer(id);
-       if(t.isAdmin()||per>0 || tacc.getTeacherid().getTeacherID().equals(id)||!tacc.getTeacherid().isAdmin() ){
+       if(t.isAdmin() || per>0 || tacc.getTeacherid().getTeacherID().equals(id)||!tacc.getTeacherid().isAdmin() ){
            response.sendRedirect("../teacher/infor?id="+t.getTeacherID());
        }else{
            db.deleteTeacher(id);

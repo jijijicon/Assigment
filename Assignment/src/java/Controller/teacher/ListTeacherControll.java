@@ -5,6 +5,7 @@
  */
 package Controller.teacher;
 
+import Controller.Login.BaseAuthController;
 import dal.TeacherDB;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,7 +20,7 @@ import model.entity.Teacher;
  *
  * @author ASUS
  */
-public class ListTeacherControll extends HttpServlet {
+public class ListTeacherControll extends BaseAuthController {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,7 +43,7 @@ public class ListTeacherControll extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         TeacherDB db = new TeacherDB();
             ArrayList<Teacher> teachers = db.getTeacher();
@@ -59,7 +60,7 @@ public class ListTeacherControll extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
     }

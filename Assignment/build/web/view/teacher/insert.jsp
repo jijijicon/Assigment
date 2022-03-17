@@ -36,17 +36,17 @@
                         <div class="form-group">
                             <label>ID</label> 
                             <input type="text" 
-                                   class="form-control" name="studentid" placeholder="Enter id">
+                             required pattern="^[A-Z]{1}[0-9]{2}$"      class="form-control" name="studentid" placeholder="Enter id">
                         </div>
                         <div class="form-group">
                             <label> họ và tên đệm </label> 
                             <input type="text" 
-                                   class="form-control" name="lastname" placeholder="Enter lastname">
+                                required pattern=".{1,}"    class="form-control" name="lastname" placeholder="Enter lastname">
                         </div>
                         <div class="form-group">
                             <label> tên </label> 
                             <input type="text" 
-                                   class="form-control" name="firstname" placeholder="Enter firstname">
+                                 required pattern=".{1,}"   class="form-control" name="firstname" placeholder="Enter firstname">
                         </div>
 
                         <div class="form-group">

@@ -17,11 +17,11 @@
         src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script
         src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
+        <title>JSP Page</title>
         <%
         Teacher t = (Teacher) request.getAttribute("t");
         %>
-        <title>JSP Page</title>
+        
 
     </head>
     <body>
@@ -50,7 +50,8 @@
 
                         <div class="form-group">
                             giới tính: 
-                            <input  type="radio" name="gender" checked="checked" <%=(t.isGender()) ? "checked=\"checked\"" : ""%>   value="boy">nam
+                            <input  type="radio" name="gender"  <%=(t.isGender()) ? "checked=\"checked\"" : ""%>   value="boy">nam
+                            <input  type="radio" name="gender"  <%=(!t.isGender()) ? "checked=\"checked\"" : ""%>   value="girl">nữ
                         </div>
 
                         <button type="submit" class="btn btn-primary">Save</button>

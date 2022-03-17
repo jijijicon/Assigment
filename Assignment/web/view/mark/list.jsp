@@ -96,8 +96,8 @@
                             <li class="nav-item item">
                                 <a class="nav-link active" aria-current="page" href="../teacher/list">ds giáo viên</a>
                             </li>
-                            <form id="search" class="d-flex nav-item item" action="../student/infor" >
-                                <input class="form-control me-2" type="text" name="studentid" placeholder="tra cứ thông tin học sinh" aria-label="Search">
+                             <form id="search" class="d-flex nav-item item" action="../student/searchname" method="GET" >
+                                <input class="form-control me-2" type="text" name="name" placeholder="tra cứu học sinh" aria-label="Search">
                                 <button class="btn btn-primary" type="submit" value="add" name="add">search</button>
 
                             </form>
@@ -262,8 +262,9 @@
                                             k2++;
                                             return '';
                                         } else if ( hk2.includes('2')) {
-                                            return 'chưa hoàn thành';
                                             ch2++;
+                                        return 'chưa hoàn thành';
+                                            
                                         } else if (hk2.includes('3')) {
                                             h2++;
                                             return 'hoàn thành';

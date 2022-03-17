@@ -20,7 +20,12 @@
         <script
         src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
-
+        <%
+            String mess = (String) request.getAttribute("message");
+        if(mess==null){
+                mess="";
+            }
+        %>
         <title>Document</title>
     </head>
 
@@ -33,10 +38,7 @@
 
                     <h2 class="myclass">đăng nhập</h2>
                     <form action="login" method="post" >
-                        <div class="form-group">
-                           
-
-                        </div>
+                         <i><%= mess %></i>
                         <div class="form-group">
                             <label> tài khoản </label> 
                             <input type="text" placeholder="username" name="username"><br>

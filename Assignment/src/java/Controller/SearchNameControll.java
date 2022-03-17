@@ -3,23 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller.Article;
+package Controller;
 
 import Controller.Login.BaseAuthController;
-import dal.ArticleDB;
+import dal.StudentDB;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.entity.Article;
+import model.entity.Student;
 
 /**
  *
  * @author ASUS
  */
-public class InsertArticleControll extends BaseAuthController {
+public class SearchNameControll extends BaseAuthController {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,7 +31,17 @@ public class InsertArticleControll extends BaseAuthController {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        String name = request.getParameter("name");
+        StudentDB db = new StudentDB();
+        ArrayList<Student> students = db.getStudentsByName(name);
+        
+        
+        request.setAttribute("students", students);
+        request.getRequestDispatcher("../view/student/searchname.jsp").forward(request, response);
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -44,7 +55,7 @@ public class InsertArticleControll extends BaseAuthController {
     @Override
     protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("../view/article/insert.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -58,26 +69,7 @@ public class InsertArticleControll extends BaseAuthController {
     @Override
     protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         request.setCharacterEncoding("UTF-8");
-        String title = request.getParameter("title");
-        String content = request.getParameter("content");
-        String photo = request.getParameter("photo");
-        
-        if(photo==null||photo.trim().length() == 0 ){
-            photo="0";
-        }
-        
-        
-        Article art = new Article();
-        art.setTitle(title);
-        art.setContent(content);
-        art.setImage(photo);
-        
-        ArticleDB db = new ArticleDB();
-        
-        Article a = db.insertArticle(art);
-        response.sendRedirect("detail?aid="+a.getId());
-        
+        processRequest(request, response);
     }
 
     /**

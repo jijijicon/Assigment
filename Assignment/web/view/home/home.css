@@ -20,21 +20,21 @@ nav .nav-item {
     padding-left: 15px;
 }
 
-a:link {
+nav a:link {
     color: white !important;
     background-color: transparent;
     text-decoration: none;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-a:visited {
+nav a:visited {
     color: white !important;
     background-color: transparent;
     text-decoration: none;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-a:hover {
+nav a:hover {
     color: white !important;
     background-color: #2d2d2d1f;
     font-family: Arial, Helvetica, sans-serif;
@@ -130,4 +130,24 @@ table{
 
 .date-art{
     text-align: right!important;
+}
+
+td a:link {
+    color: black !important;
+    background-color: transparent;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+td a:visited {
+    color: black !important;
+    background-color: transparent;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+td a:hover {
+    color: black !important;
+    background-color: #2d2d2d1f;
+    font-family: Arial, Helvetica, sans-serif;
 }

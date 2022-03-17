@@ -40,6 +40,12 @@ public class SearchStudentControll extends BaseAuthController {
             throws ServletException, IOException {
         GradeDB graDB = new GradeDB();
         ArrayList<Grade> grades = graDB.getListGrade();
+        String action = request.getParameter("action");
+        if(action==null|| action.trim().length()==0){
+            action = "3";
+        }
+        int ac = Integer.parseInt(action);
+        
         request.setAttribute("grades", grades);
 
        
@@ -84,7 +90,7 @@ public class SearchStudentControll extends BaseAuthController {
         
         
         
-        ArrayList<Student> students = sdb.getListStudentByClassandGrade(gradeID,classID ,pageindex,pagesize);
+        ArrayList<Student> students = sdb.getListStudentByClassandGrade(gradeID,classID ,pageindex,pagesize,ac);
         request.setAttribute("classID", classID);
         request.setAttribute("students", students);
         

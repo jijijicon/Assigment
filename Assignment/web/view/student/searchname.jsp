@@ -1,14 +1,12 @@
 <%-- 
-    Document   : insert
-    Created on : Feb 12, 2022, 11:02:03 PM
+    Document   : searchname
+    Created on : Mar 16, 2022, 10:14:25 PM
     Author     : ASUS
 --%>
 
 <%@page import="model.account.TeacherAccount"%>
 <%@page import="model.account.ParentAccount"%>
 <%@page import="model.entity.Student"%>
-<%@page import="model.entity.Grade"%>
-<%@page import="model.entity.ClassStudent"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -27,29 +25,18 @@
         <script src="../js/pagger.js" type="text/javascript" ></script>
         <link href="../view/student/search.css" rel="stylesheet" type="text/css"/>
         <%
-            ArrayList<Grade> gras = (ArrayList<Grade>) request.getAttribute("grades");
-            ArrayList<ClassStudent> classes = (ArrayList<ClassStudent>) request.getAttribute("classes");
-            int gradeID = (Integer) request.getAttribute("gradeID");
-            String classID = (String) request.getAttribute("classID");
+            
             ArrayList<Student> students = (ArrayList<Student>) request.getAttribute("students");
-            Integer pageindex = (Integer) request.getAttribute("pageindex");
-            Integer totalpage = (Integer) request.getAttribute("totalpage");
+//            Integer pageindex = (Integer) request.getAttribute("pageindex");
+//            Integer totalpage = (Integer) request.getAttribute("totalpage");
 
             String admin = (String) request.getSession().getAttribute("admin");
-            int index = 0;
-
+            
+            
+            
 
         %>
-        <script>
-            function submitGrade() {
-                document.getElementById("searchByGrade").submit();
-            }
-            function myFunction(i) {
-                var h = document.getElementById("act");
-                h.insertAdjacentHTML("afterend", "<input type='hidden'  name='action' value='"+i+"' >");
-                document.getElementById("searchByGrade").submit();
-            }
-        </script>
+        
 
     </head>
     <body>
@@ -99,7 +86,6 @@
                                 <button class="btn btn-primary" type="submit" value="add" name="add">search</button>
 
                             </form>
-
                             <%}%>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -108,8 +94,9 @@
                                     <li><a class="dropdown-item" href="../login/changepass">đổi mật khẩu</a></li>
 
                                     <li> <% if (admin.equals("0")) {
-                                                ParentAccount pacc = (ParentAccount) request.getSession().getAttribute("account");%> <a class="dropdown-item" href="../student/infor?studentid=<%= pacc.getStudentID().getStudentID()%>">thông tin</a> <%} else if (admin.equals("1")) {
-                                                    TeacherAccount tacc = (TeacherAccount) request.getSession().getAttribute("account");%><a class="dropdown-item" href="../teacher/infor?id=<%= tacc.getTeacherid().getTeacherID()%>">thông tin</a><%}%></li>
+                                        ParentAccount pacc = (ParentAccount) request.getSession().getAttribute("account");%> <a class="dropdown-item" href="../student/infor?studentid=<%= pacc.getStudentID().getStudentID() %>">thông tin</a> <%} 
+                                        else if (admin.equals("1")) {
+                                    TeacherAccount tacc = (TeacherAccount) request.getSession().getAttribute("account");%><a class="dropdown-item" href="../teacher/infor?id=<%= tacc.getTeacherid().getTeacherID() %>">thông tin</a><%}%></li>
                                     <li><a class="dropdown-item" href="../logout">đăng xuất</a></li>
 
                                 </ul>
@@ -147,38 +134,7 @@
             </div>
             <div class="content">
                 <h2> danh sách học sinh </h2>
-                <div class="selectlist">
-                    <form  action="../student/search" method="GET" id="searchByGrade" onchange="submitGrade();">
-
-                        <div class="row">
-                            <div class="col-sm-4 select-item">
-                                Khối: <select name="gradeID">
-                                    <option value="-1" >chọn khối</option>
-                                    <%for (Grade d : gras) {%>
-                                    <option <% if (d.getGradeID() == gradeID) {%> selected="selected" <%}%>
-                                                                                  value="<%= d.getGradeID()%>">
-
-                                    <a href="../student/search?gradeID=<%= d.getGradeID()%>" > <%= d.getGradeID()%> </a>
-                                    </option>   
-                                    <%}
-                                    %>
-                                </select>
-                            </div>
-                            <div class="col-sm-4 select-item">
-                                lớp <select name="classID">
-                                    <option value="0" >chọn lớp</option>
-                                    <% for (ClassStudent c : classes) {%>
-                                    <option <% if (c.getClassID().equals(classID)) { %> selected="selected"<%}%>
-                                                                                        value="<%= c.getClassID()%>"><%= c.getClassID()%></option>
-                                    <%   }
-                                    %>
-                                </select>
-                            </div>
-                            
-                        </div>
-                        <div id="act" ></div>
-                    </form>
-                </div>
+                
 
 
                 <table  class="table table-striped table-hover table1">
@@ -186,12 +142,12 @@
                         <th>photo</th>
                         <th>#</th>
 
-                        <th><a onclick="myFunction(1)" >ID</a></th>
-                        <th><a onclick="myFunction(2)" >ho</a></th>
-                        <th><a onclick="myFunction(3)" >tên</a></th>
-                        <th><a onclick="myFunction(4)" > giới tính </a></th>
-                        <th><a onclick="myFunction(5)" >ngày sinh</a></th>
-                        <th><a onclick="myFunction(6)" >lớp</a></th>
+                        <th>id</th>
+                        <th>ho</th>
+                        <th>tên</th>
+                        <th>giới tính</th>
+                        <th>ngày sinh</th>
+                        <th>lớp</th>
                         <th></th>
                     </tr>
                     <% for (int i = 0; i < students.size(); i++) {%>
@@ -201,7 +157,7 @@
 
                     <tr>
                         <td > <img class="anh" src="../image/<%= students.get(i).getPhoto()%>"  > </td>
-                        <td><%= (pageindex - 1) * 10 + i + 1%></td>
+                        <td><%= i + 1%></td>
                         <td><%= students.get(i).getStudentID()%></td>
                         <td><%= students.get(i).getLastname()%></td>
                         <td><%= students.get(i).getFirstname()%></td>
@@ -213,7 +169,7 @@
                     <%}
                     %>
                 </table>
-                <a href="../student/insert" class="btn btn-primary">thêm học sinh</a>   
+                 
                 <div id="pagger"></div>
 
 
@@ -226,7 +182,8 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         <script>
-                            pagger("pagger",<%= pageindex%>,<%= totalpage%>, 2, '<%= gradeID%>', '<%= classID%>');
+                       
         </script>
     </body>
 </html>
+

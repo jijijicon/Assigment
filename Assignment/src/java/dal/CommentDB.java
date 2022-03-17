@@ -25,18 +25,21 @@ public class CommentDB extends DBContext {
                 + "           ([studentID]\n"
                 + "           ,[comment]\n"
                 + "           ,[teacher]\n"
-                + "           ,[date])\n"
+                + "           ,[date]"
+                + "           ,[nameuser])\n"
                 + "     VALUES\n"
                 + "           (?\n"
                 + "           ,?\n"
                 + "           ,?\n"
-                + "           ,GETDATE()) ";
+                + "           ,GETDATE()"
+                + "           ,?\n) ";
         PreparedStatement stm = null;
         try {
             stm = connection.prepareStatement(sql);
             stm.setString(1, cmt.getStudentid().getStudentID());
             stm.setString(2, cmt.getContent());
             stm.setBoolean(3, cmt.isTeacher());
+            stm.setNString(4, cmt.getNameuser());
 
             stm.executeUpdate();
         } catch (SQLException ex) {
@@ -67,7 +70,8 @@ public class CommentDB extends DBContext {
                     + "      ,[studentID]\n"
                     + "      ,[comment]\n"
                     + "      ,[teacher]\n"
-                    + "      ,[date]\n"
+                    + "      ,[date]"
+                    + "       ,[nameuser]  \n"
                     + "  FROM [Comment] where [studentID] = ?  order by cid desc";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, sid);
@@ -85,6 +89,7 @@ public class CommentDB extends DBContext {
                 cmt.setContent(rs.getNString(3));
                 cmt.setTeacher(rs.getBoolean(4));
                 cmt.setDate(rs.getDate(5));
+                cmt.setNameuser(rs.getNString(6));
                 cmts.add(cmt);
             }
         } catch (SQLException ex) {
@@ -110,7 +115,8 @@ public class CommentDB extends DBContext {
                     + "      ,[studentID]\n"
                     + "      ,[comment]\n"
                     + "      ,[teacher]\n"
-                    + "      ,[date]\n"
+                    + "      ,[date]"
+                    + "      ,[nameuser]  \n"
                     + "  FROM [Comment] where cid = ? ";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, cid);
@@ -128,6 +134,7 @@ public class CommentDB extends DBContext {
                 cmt.setContent(rs.getNString(3));
                 cmt.setTeacher(rs.getBoolean(4));
                 cmt.setDate(rs.getDate(5));
+                cmt.setNameuser(rs.getNString(6));
                 
                 return cmt;
             }

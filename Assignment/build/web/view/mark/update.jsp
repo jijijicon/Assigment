@@ -61,31 +61,32 @@
 
                     <tbody>
 
-                        <% for (int i = 0; i < marks.size(); i++) {%>
-                        <tr>
+
 
                     <form action="../mark/update" method="POST">
-                        <input type="hidden" name="stid" value="<%= st.getStudentID()%>">
-                        <input type="hidden" name="sjid" value="<%= marks.get(i).getSubjectid().getSubjectID() %>">
-                        <th scope="row"><%= marks.get(i).getSubjectid().getSubjectName()%></td>
-                        <td><input type="number"  min="0" max="10" name="sm1" value="<% if (marks.get(i).getSmalltest1() == -1) {%><%} else {%><%= marks.get(i).getSmalltest1()%><%}%>"> </td>
-                        <td><input type="number"  min="0" max="10" name="bi1" value="<% if (marks.get(i).getBigtest1() == -1) {%><%} else {%><%= marks.get(i).getBigtest1()%><%}%>"> </td>
-                        <td><input type="number"  min="0" max="10" name="fi1" value="<% if (marks.get(i).getFinalltest1() == -1) {%><%} else {%><%= marks.get(i).getFinalltest1()%><%}%>"> </td>
-                        <td><input type="number"  min="0" max="10" name="sm2" value="<% if (marks.get(i).getSmalltest2() == -1) {%><%} else {%><%= marks.get(i).getSmalltest2()%><%}%>"> </td>
-                        <td><input type="number"  min="0" max="10" name="bi2" value="<% if (marks.get(i).getBigtest2() == -1) {%><%} else {%><%= marks.get(i).getBigtest2()%><%}%>"> </td>
-                        <td><input type="number"  min="0" max="10" name="fi2" value="<% if (marks.get(i).getFinalltest2() == -1) {%><%} else {%><%= marks.get(i).getFinalltest2()%><%}%>"> </td>
-                        <td colspan="7"> <button class="btn btn-primary" type="submit" value="add" name="add">save</button><button type="reset" class="btn btn-primary">cancel</button> </td>
+                         <input type="hidden" name="stid" value="<%= st.getStudentID()%>">
+                        <% for (int i = 0; i < marks.size(); i++) {%>
+                        <tr>
+                       
+                        <input type="hidden" name="sjid" value="<%= marks.get(i).getSubjectid().getSubjectID()%>">
+                        <th scope="row"><%= marks.get(i).getSubjectid().getSubjectName()%></th>
+                        <td><input type="number"  min="0" max="10" name="sm1<%=marks.get(i).getSubjectid().getSubjectID()  %>" value="<% if (marks.get(i).getSmalltest1() == -1) {%><%} else {%><%= marks.get(i).getSmalltest1()%><%}%>"> </td>
+                        <td><input type="number"  min="0" max="10" name="bi1<%=marks.get(i).getSubjectid().getSubjectID()  %>" value="<% if (marks.get(i).getBigtest1() == -1) {%><%} else {%><%= marks.get(i).getBigtest1()%><%}%>"> </td>
+                        <td><input type="number"  min="0" max="10" name="fi1<%=marks.get(i).getSubjectid().getSubjectID()  %>" value="<% if (marks.get(i).getFinalltest1() == -1) {%><%} else {%><%= marks.get(i).getFinalltest1()%><%}%>"> </td>
+                        <td><input type="number"  min="0" max="10" name="sm2<%=marks.get(i).getSubjectid().getSubjectID()  %>" value="<% if (marks.get(i).getSmalltest2() == -1) {%><%} else {%><%= marks.get(i).getSmalltest2()%><%}%>"> </td>
+                        <td><input type="number"  min="0" max="10" name="bi2<%=marks.get(i).getSubjectid().getSubjectID()  %>" value="<% if (marks.get(i).getBigtest2() == -1) {%><%} else {%><%= marks.get(i).getBigtest2()%><%}%>"> </td>
+                        <td><input type="number"  min="0" max="10" name="fi2<%=marks.get(i).getSubjectid().getSubjectID()  %>" value="<% if (marks.get(i).getFinalltest2() == -1) {%><%} else {%><%= marks.get(i).getFinalltest2()%><%}%>"> </td>
+                        </tr>
 
 
-
-
+                        <%}
+                        %>
+                        <tr><td colspan="7" > <button class="btn btn-primary" type="submit" value="add" name="add">save</button><button type="reset" class="btn btn-primary">cancel</button></td> </tr>
                     </form>
-                    <%}
-                    %>
                     </tbody>
                 </table>
             </div>
-                    <a href="../mark/detail?studentid="<%= st.getStudentID() %>>quay về</a>
+            <a href="../mark/detail?studentid=<%= st.getStudentID()%>">quay về</a>
         </div>
 
 

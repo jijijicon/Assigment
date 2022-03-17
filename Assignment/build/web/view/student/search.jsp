@@ -36,16 +36,19 @@
             Integer totalpage = (Integer) request.getAttribute("totalpage");
 
             String admin = (String) request.getSession().getAttribute("admin");
-            
-            
-            
+            int index = 0;
+
 
         %>
         <script>
             function submitGrade() {
                 document.getElementById("searchByGrade").submit();
             }
-
+            function myFunction(i) {
+                var h = document.getElementById("act");
+                h.insertAdjacentHTML("afterend", "<input type='hidden'  name='action' value='"+i+"' >");
+                document.getElementById("searchByGrade").submit();
+            }
         </script>
 
     </head>
@@ -91,8 +94,8 @@
                             <li class="nav-item item">
                                 <a class="nav-link active" aria-current="page" href="../teacher/list">ds giáo viên</a>
                             </li>
-                            <form id="search" class="d-flex nav-item item" action="../student/infor" >
-                                <input class="form-control me-2" type="text" name="studentid" placeholder="tra cứ thông tin học sinh" aria-label="Search">
+                            <form id="search" class="d-flex nav-item item" action="../student/searchname" method="GET" >
+                                <input class="form-control me-2" type="text" name="name" placeholder="tra cứu học sinh" aria-label="Search">
                                 <button class="btn btn-primary" type="submit" value="add" name="add">search</button>
 
                             </form>
@@ -105,9 +108,8 @@
                                     <li><a class="dropdown-item" href="../login/changepass">đổi mật khẩu</a></li>
 
                                     <li> <% if (admin.equals("0")) {
-                                        ParentAccount pacc = (ParentAccount) request.getSession().getAttribute("account");%> <a class="dropdown-item" href="../student/infor?studentid=<%= pacc.getStudentID().getStudentID() %>">thông tin</a> <%} 
-                                        else if (admin.equals("1")) {
-                                        TeacherAccount tacc = (TeacherAccount) request.getSession().getAttribute("account");%><a class="dropdown-item" href="../teacher/infor?id=<%= tacc.getTeacherid().getTeacherID() %>">thông tin</a><%}%></li>
+                                                ParentAccount pacc = (ParentAccount) request.getSession().getAttribute("account");%> <a class="dropdown-item" href="../student/infor?studentid=<%= pacc.getStudentID().getStudentID()%>">thông tin</a> <%} else if (admin.equals("1")) {
+                                                    TeacherAccount tacc = (TeacherAccount) request.getSession().getAttribute("account");%><a class="dropdown-item" href="../teacher/infor?id=<%= tacc.getTeacherid().getTeacherID()%>">thông tin</a><%}%></li>
                                     <li><a class="dropdown-item" href="../logout">đăng xuất</a></li>
 
                                 </ul>
@@ -149,7 +151,7 @@
                     <form  action="../student/search" method="GET" id="searchByGrade" onchange="submitGrade();">
 
                         <div class="row">
-                            <div class="col-sm-6 select-item">
+                            <div class="col-sm-4 select-item">
                                 Khối: <select name="gradeID">
                                     <option value="-1" >chọn khối</option>
                                     <%for (Grade d : gras) {%>
@@ -162,7 +164,7 @@
                                     %>
                                 </select>
                             </div>
-                            <div class="col-sm-6 select-item">
+                            <div class="col-sm-4 select-item">
                                 lớp <select name="classID">
                                     <option value="0" >chọn lớp</option>
                                     <% for (ClassStudent c : classes) {%>
@@ -172,7 +174,9 @@
                                     %>
                                 </select>
                             </div>
+                            
                         </div>
+                        <div id="act" ></div>
                     </form>
                 </div>
 
@@ -182,12 +186,12 @@
                         <th>photo</th>
                         <th>#</th>
 
-                        <th>id</th>
-                        <th>ho</th>
-                        <th>tên</th>
-                        <th>giới tính</th>
-                        <th>ngày sinh</th>
-                        <th>lớp</th>
+                        <th><a onclick="myFunction(1)" >ID</a></th>
+                        <th><a onclick="myFunction(2)" >ho</a></th>
+                        <th><a onclick="myFunction(3)" >tên</a></th>
+                        <th><a onclick="myFunction(4)" > giới tính </a></th>
+                        <th><a onclick="myFunction(5)" >ngày sinh</a></th>
+                        <th><a onclick="myFunction(6)" >lớp</a></th>
                         <th></th>
                     </tr>
                     <% for (int i = 0; i < students.size(); i++) {%>
@@ -197,7 +201,7 @@
 
                     <tr>
                         <td > <img class="anh" src="../image/<%= students.get(i).getPhoto()%>"  > </td>
-                        <td><%= i + 1%></td>
+                        <td><%= (pageindex - 1) * 10 + i + 1%></td>
                         <td><%= students.get(i).getStudentID()%></td>
                         <td><%= students.get(i).getLastname()%></td>
                         <td><%= students.get(i).getFirstname()%></td>
@@ -222,7 +226,7 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         <script>
-                        pagger("pagger",<%= pageindex%>,<%= totalpage%>, 2, '<%= gradeID%>', '<%= classID%>');
+                            pagger("pagger",<%= pageindex%>,<%= totalpage%>, 2, '<%= gradeID%>', '<%= classID%>');
         </script>
     </body>
 </html>

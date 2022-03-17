@@ -51,12 +51,12 @@
                         <div class="form-group">
                             <label> mật khẩu mới </label> 
                             <input type="password" 
-                                   class="form-control" name="newpass" placeholder="new pass">
+                                required pattern=".{6,}"   class="form-control" name="newpass" placeholder="new pass">
                         </div>
                         <div class="form-group">
                             <label> nhập lại mật khẩu mới </label> 
                             <input type="password" 
-                                    pattern=".{6,}" title="Eight or more characters" class="form-control" name="cfnewpass" placeholder="new pass">
+                                    required pattern=".{6,}" title="Eight or more characters" class="form-control" name="cfnewpass" placeholder="new pass">
                         </div>
                                          
 
@@ -69,6 +69,7 @@
                                          
                 </div>
                 <i><%= mess %></i>
+                
             </div>
         </div>
     </body>

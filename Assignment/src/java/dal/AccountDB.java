@@ -121,7 +121,7 @@ public class AccountDB extends DBContext {
 
     public TeacherAccount getTA(String username, String password) {
         try {
-            String sql = "SELECT    TeacherAccount.username, TeacherAccount.password, Teacher.teacherID, Teacher.firstname\n"
+            String sql = "SELECT    TeacherAccount.username, TeacherAccount.password, Teacher.teacherID, Teacher.firstname, Teacher.admin\n"
                     + "                    FROM         TeacherAccount INNER JOIN\n"
                     + "                                        Teacher ON TeacherAccount.teacherID = Teacher.teacherID"
                     + "					  where TeacherAccount.username = ? and [password] = ?  ";
@@ -138,7 +138,7 @@ public class AccountDB extends DBContext {
                 Teacher t = new Teacher();
                 t.setTeacherID(rs.getString(3));
                 t.setFirstname(rs.getNString(4));
-                
+                t.setAdmin(rs.getBoolean(5));
                 ta.setTeacherid(t);
                 
                 return ta;

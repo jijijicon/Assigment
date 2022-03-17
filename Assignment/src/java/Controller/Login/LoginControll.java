@@ -22,10 +22,15 @@ import model.entity.Teacher;
  */
 public class LoginControll extends HttpServlet {
 
-   
+   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+       
+         request.getRequestDispatcher("view/login/login.jsp").forward(request, response);
+    }
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("view/login/login.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -39,6 +44,7 @@ public class LoginControll extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         AccountDB adb = new AccountDB();
@@ -49,7 +55,8 @@ public class LoginControll extends HttpServlet {
             
             request.getSession().setAttribute("admin", null);
             request.getSession().setAttribute("account", null);
-            response.getWriter().println("login failed!");
+            request.setAttribute("message", "mật khẩu hoặc tài khoản không chính xác");
+            processRequest(request, response);
             
         }else if(pacc!=null && tacc==null){
             admin = "0";

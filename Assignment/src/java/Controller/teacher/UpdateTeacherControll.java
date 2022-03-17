@@ -40,7 +40,7 @@ public class UpdateTeacherControll extends BaseAuthController {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UpdateTeacherControll</title>");            
+            out.println("<title>Servlet UpdateTeacherControll</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet UpdateTeacherControll at " + request.getContextPath() + "</h1>");
@@ -61,21 +61,19 @@ public class UpdateTeacherControll extends BaseAuthController {
     @Override
     protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        TeacherAccount tacc =(TeacherAccount) request.getSession().getAttribute("account");
-        String id = request.getParameter("id");
-        
-        if(!tacc.getTeacherid().isAdmin()){
-            response.sendRedirect("../teacher/infor?id="+id);
+        TeacherAccount tacc = (TeacherAccount) request.getSession().getAttribute("account");
 
-        }
-        
-                
-                
-        
+        String id = request.getParameter("id");
         TeacherDB db = new TeacherDB();
         Teacher t = db.getTeacherById(id);
-        request.setAttribute("t", t);
-        request.getRequestDispatcher("../view/teacher/update.jsp").forward(request, response);
+        if (tacc.getTeacherid().isAdmin()) {
+
+            request.setAttribute("t", t);
+            request.getRequestDispatcher("../view/teacher/update.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("../teacher/infor?id=" + id);
+        }
+
     }
 
     /**
@@ -96,14 +94,21 @@ public class UpdateTeacherControll extends BaseAuthController {
         t.setFirstname(request.getParameter("firstname"));
         t.setLastname(request.getParameter("lastname"));
         t.setGender(gender);
-        
-        
-        TeacherDB tdb= new TeacherDB();
+
+        TeacherDB tdb = new TeacherDB();
         tdb.updateTeacher(t);
         
-
+        AccountDB adb = new AccountDB();
+        TeacherAccount tacc = (TeacherAccount) request.getSession().getAttribute("account");
+        String username = tacc.getUssername();
+        String password = tacc.getPassword();
         
-        response.sendRedirect("../teacher/infor?id="+t.getTeacherID());
+        
+        TeacherAccount nacc = adb.getTA(username, password);
+        request.getSession().removeAttribute("account");
+        request.getSession().setAttribute("account", nacc);
+        
+        response.sendRedirect("../teacher/infor?id=" + t.getTeacherID());
     }
 
     /**

@@ -3,13 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/src/java/Controller/Mark/DeleteCommentControll.java</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/src/java/Controller/Login/changepass.java</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/mark/listmark.js</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/src/java/Controller/Mark/UpdateMarkControll.java</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/mark/list.jsp</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/mark/update.jsp</file>
-            <file>file:/D:/2022%20spring/Assignment/Assignment/src/java/Controller/Mark/DetailMarkControll.java</file>
+            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/article/detail.jsp</file>
+            <file>file:/D:/2022%20spring/Assignment/Assignment/src/java/Controller/SearchStudentControll.java</file>
+            <file>file:/D:/2022%20spring/Assignment/Assignment/web/js/pagger.js</file>
+            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/class/update.jsp</file>
+            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/class/infor.jsp</file>
+            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/article/update.jsp</file>
+            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/article/insert.jsp</file>
+            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/student/search.jsp</file>
+            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/teacher/list.jsp</file>
+            <file>file:/D:/2022%20spring/Assignment/Assignment/web/view/login/login.jsp</file>
         </group>
     </open-files>
 </project-private>

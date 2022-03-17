@@ -56,6 +56,7 @@ public class DetailMarkControll extends BaseAuthController {
             if (!acc.getStudentID().getStudentID().equals(studentid)) {
                 response.sendRedirect("../mark/detail?studentid="+acc.getStudentID().getStudentID());
             } else {
+                
                 StudentDB stdb = new StudentDB();
                 Student st = stdb.getStudent(studentid);
                 request.setAttribute("student", st);
@@ -110,19 +111,19 @@ public class DetailMarkControll extends BaseAuthController {
             if (m.get(i).getFinalltest1() < 5) {
                 hk2 += "2";
             }
-            if (m.get(i).getFinalltest1() >= 5 || m.get(i).getFinalltest1() < 7) {
+            if (m.get(i).getFinalltest1() >= 5 && m.get(i).getFinalltest1() < 7) {
                 hk2 += "3";
             }
-            if (m.get(i).getFinalltest1() >= 7 || m.get(i).getFinalltest1() < 9) {
+            if (m.get(i).getFinalltest1() >= 7 && m.get(i).getFinalltest1() < 9) {
                 hk2 += "4";
             }
-            if (m.get(i).getFinalltest1() >= 9 || m.get(i).getFinalltest1() <= 10) {
+            if (m.get(i).getFinalltest1() >= 9 && m.get(i).getFinalltest1() <= 10) {
                 hk2 += "5";
             }
 
         }
         if (hk2.contains("1")) {
-            return "chưa có thông tin";
+            return "";
         } else if (hk2.contains("2")) {
             return "chưa hoàn thành";
         } else if (hk2.contains("3")) {
@@ -144,19 +145,19 @@ public class DetailMarkControll extends BaseAuthController {
             if (m.get(i).getFinalltest2() < 5) {
                 hk2 += "2";
             }
-            if (m.get(i).getFinalltest2() >= 5 || m.get(i).getFinalltest2() < 7) {
+            if (m.get(i).getFinalltest2() >= 5 && m.get(i).getFinalltest2() < 7) {
                 hk2 += "3";
             }
-            if (m.get(i).getFinalltest2() >= 7 || m.get(i).getFinalltest2() < 9) {
+            if (m.get(i).getFinalltest2() >= 7 && m.get(i).getFinalltest2() < 9) {
                 hk2 += "4";
             }
-            if (m.get(i).getFinalltest2() >= 9 || m.get(i).getFinalltest2() <= 10) {
+            if (m.get(i).getFinalltest2() >= 9 && m.get(i).getFinalltest2() <= 10) {
                 hk2 += "5";
             }
 
         }
         if (hk2.contains("1")) {
-            return "chưa có thông tin";
+            return "";
         } else if (hk2.contains("2")) {
             return "chưa hoàn thành";
         } else if (hk2.contains("3")) {
@@ -173,6 +174,7 @@ public class DetailMarkControll extends BaseAuthController {
     protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
+        String username = request.getParameter("username");
         String sid = request.getParameter("id");
         String per = request.getParameter("per");
         String content = request.getParameter("content");
@@ -181,7 +183,7 @@ public class DetailMarkControll extends BaseAuthController {
 
         Student st = new Student();
         st.setStudentID(sid);
-
+        cmt.setNameuser(username);
         cmt.setStudentid(st);
         cmt.setContent(content);
         cmt.setTeacher(per.equals("1"));

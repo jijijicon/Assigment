@@ -4,6 +4,8 @@
     Author     : ASUS
 --%>
 
+<%@page import="model.account.TeacherAccount"%>
+<%@page import="model.account.ParentAccount"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.entity.ClassStudent"%>
 <%@page import="model.entity.Student"%>
@@ -69,12 +71,13 @@
                                 </ul>
                             </li>
 
+
                             <% if (admin.equals("1")) {%>
                             <li class="nav-item item">
                                 <a class="nav-link active" aria-current="page" href="../teacher/list">ds giáo viên</a>
                             </li>
-                            <form id="search" class="d-flex nav-item item" action="../student/infor" >
-                                <input class="form-control me-2" type="text" name="studentid" placeholder="tra cứ thông tin học sinh" aria-label="Search">
+                            <form id="search" class="d-flex nav-item item" action="../student/searchname" method="GET" >
+                                <input class="form-control me-2" type="text" name="name" placeholder="tra cứu học sinh" aria-label="Search">
                                 <button class="btn btn-primary" type="submit" value="add" name="add">search</button>
 
                             </form>
@@ -84,10 +87,12 @@
                                 <a class="nav-link dropdown-toggle" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class='bx bxs-user'> </i><%= admin.equals("1") ? "  giáo viên" : "  phụ huynh"%></a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="../mark/list?classid=1A">đổi mật khẩu</a></li>
+                                    <li><a class="dropdown-item" href="../login/changepass">đổi mật khẩu</a></li>
 
-                                    <li><a class="dropdown-item" href="../mark/list?classid=2A">thông tin</a></li>
-                                    <li><a class="dropdown-item" href="../mark/list?classid=1B">đăng xuất</a></li>
+                                        <li> <% if (admin.equals("0")) {
+                                            ParentAccount pacc = (ParentAccount) request.getSession().getAttribute("account");%> <a class="dropdown-item" href="../student/infor?studentid=<%= pacc.getStudentID().getStudentID()%>">thông tin</a> <%} else if (admin.equals("1")) {
+                                            TeacherAccount tacc = (TeacherAccount) request.getSession().getAttribute("account");%><a class="dropdown-item" href="../teacher/infor?id=<%= tacc.getTeacherid().getTeacherID()%>">thông tin</a><%}%></li>
+                                    <li><a class="dropdown-item" href="../logout">đăng xuất</a></li>
 
                                 </ul>
                             </li>
