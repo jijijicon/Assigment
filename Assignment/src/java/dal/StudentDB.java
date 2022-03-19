@@ -26,8 +26,23 @@ public class StudentDB extends DBContext {
     public ArrayList<Student> getListStudentByClassandGrade(int gradeid, String classid, int pageindex, int pagesize, int action) {
         ArrayList<Student> students = new ArrayList<>();
         try {
+            String text="order by firstName";
+            if (action == 1) {
+                text = "order by studentID";
+            } else if (action == 3) {
+                text = "order by firstName";
+            } else if (action == 2) {
+                text = "order by lastName";
+            } else if (action == 4) {
+                text = "order by gender";
+            } else if (action == 5) {
+                text = "order by dob";
+            } else if (action == 6) {
+                text = "order by Student.classID";
+            }
+
             String sql = "SELECT    studentID, firstName, lastName, gender, dob,  photo, classID, tb1.teacherID , tb1.GradeID\n"
-                    + "FROM         (select studentID, Student.classID, firstName, lastName, gender, dob, adress, photo, Class.GradeID, Class.teacherID ,ROW_NUMBER() over (Order by firstName) as row_index from Student\n"
+                    + "FROM         (select studentID, Student.classID, firstName, lastName, gender, dob, adress, photo, Class.GradeID, Class.teacherID ,ROW_NUMBER() over (" + text + ") as row_index from Student\n"
                     + "			inner join Class on Student.classID = Class.classID	\n"
                     + "			inner join Grade on Grade.GradeID = Class.GradeID \n"
                     + " \n";
@@ -45,17 +60,7 @@ public class StudentDB extends DBContext {
                 sql += " ) as tb1 where  row_index >= (?-1)*? + 1  and  row_index <= ?*? ";
             }
 //            
-            
-            
-            if(action == 1){
-                sql+= "order by studentID";
-            }
-            else if(action == 3 ){
-                sql += "order by firstName" ;
-            }else if (action == 2) sql += "order by lastName" ;
-            else if (action == 4) sql += "order by gender" ;
-            else if (action == 5) sql += "order by dob" ;
-            else if (action == 6) sql += "order by classID" ;
+
             PreparedStatement stm = connection.prepareStatement(sql);
 //          
 //          
@@ -539,8 +544,8 @@ public class StudentDB extends DBContext {
                     + "  where firstName like ? or lastName like ?\n"
                     + "  order by firstName";
             PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setNString(1, "%"+name+"%");
-            stm.setNString(2, "%"+name+"%");
+            stm.setNString(1, "%" + name + "%");
+            stm.setNString(2, "%" + name + "%");
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Student s = new Student();

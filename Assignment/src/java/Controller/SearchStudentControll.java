@@ -93,7 +93,7 @@ public class SearchStudentControll extends BaseAuthController {
         ArrayList<Student> students = sdb.getListStudentByClassandGrade(gradeID,classID ,pageindex,pagesize,ac);
         request.setAttribute("classID", classID);
         request.setAttribute("students", students);
-        
+        request.setAttribute("action", action);
         int count  = sdb.count(gradeID, classID);
         int totalpage = (count%pagesize==0)?(count/pagesize):(count/pagesize)+1;
         request.setAttribute("totalpage", totalpage);

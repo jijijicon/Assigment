@@ -38,7 +38,7 @@
                 <div class="col-sm-12">
 
                     <h2 class="myclass">thêm học sinh</h2>
-                    <form action="../student/insert" method="post" >
+                    <form action="insert" method="post" >
                         <i><%= mess %></i>
                         <div class="form-group">
                             <label>ID</label> 
@@ -81,12 +81,7 @@
                             <input type="text" 
                             required pattern=".{1,}" class="form-control" name="adress">
                         </div>
-                        <div class="form-group">
-                            <label>Photo</label> <br/>
-
-                            <input type="file" 
-                                   class="form-control" name="photo" placeholder="Enter photo">
-                        </div>
+                        <input type="file" name="file" id="file" />
 
                         <button type="submit" class="btn btn-primary">Save</button>
                         <button type="reset" class="btn btn-primary">Cancel</button>
