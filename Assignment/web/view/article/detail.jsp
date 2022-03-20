@@ -123,12 +123,14 @@
                 </button>
             </div>
 
+              <% if (admin.equals("1")) {%>
             <div class="row">
                 <div class="col-sm-3">
-                    <a class="btn btn-primary" href="../article/update?aid=<%= art.getId() %>">chỉnh sửa</a>
+                    <button onclick="window.location.href = 'article/insert'"  class="btn btn-primary">đăng tin</button>
                 </div>
             </div>
-
+            <%}%>                          
+            
             <div class="content">
                 <h2><%= art.getTitle() %></h2>
                 <i><%= art.getDate() %></i>

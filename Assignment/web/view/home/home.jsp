@@ -95,7 +95,7 @@
                             <li class="nav-item item">
                                 <a class="nav-link active" aria-current="page" href="login">đăng nhập</a>
                             </li>
-                            <%}else {%>
+                            <%} else {%>
 
 
 
@@ -150,11 +150,13 @@
                 </button>
             </div>
 
+            <% if (admin.equals("1")) {%>
             <div class="row">
                 <div class="col-sm-3">
                     <button onclick="window.location.href = 'article/insert'"  class="btn btn-primary">đăng tin</button>
                 </div>
             </div>
+            <%}%>
 
 
             <table class="table table-striped">

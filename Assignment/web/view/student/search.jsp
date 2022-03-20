@@ -152,7 +152,7 @@
                     <form  action="../student/search" method="GET" id="searchByGrade" onchange="submitGrade();">
 
                         <div class="row">
-                            <div class="col-sm-4 select-item">
+                            <div class="col-sm-6 select-item">
                                 Khối: <select name="gradeID">
                                     <option value="-1" >chọn khối</option>
                                     <%for (Grade d : gras) {%>
@@ -165,7 +165,7 @@
                                     %>
                                 </select>
                             </div>
-                            <div class="col-sm-4 select-item">
+                            <div class="col-sm-6 select-item">
                                 lớp <select name="classID">
                                     <option value="0" >chọn lớp</option>
                                     <% for (ClassStudent c : classes) {%>

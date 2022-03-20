@@ -154,8 +154,8 @@
                     <thead>
                         <tr>
                             <th></th>
-                            <th scope="col" colspan="4"> học kì 1 </th>
-                            <th scope="col" colspan="4"> học kì 2 </th>
+                            <th scope="col" colspan="<%= subjects.size()+1 %>"> học kì 1 </th>
+                            <th scope="col" colspan="<%= subjects.size()+1 %>"> học kì 2 </th>
 
                         </tr>
                         <tr>
